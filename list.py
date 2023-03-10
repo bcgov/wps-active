@@ -39,3 +39,5 @@ while start_date != now:
 
 open('S2MSI1C_' + cd.replace('/', ''), 'wb').write(get(c1 + cd).encode())
 open('S2MSI2A_' + cd.replace('/', ''), 'wb').write(get(c2 + cd).encode())
+
+# aws s3 cp  --no-sign-request s3://sentinel-products-ca-mirror/Sentinel-2/S2MSI1C/2023/03/08/S2B_MSIL1C_20230308T190239_N0509_R013_T10UFB_20230308T223026.zip S2B_MSIL1C_20230308T190239_N0509_R013_T10UFB_20230308T223026.zip
