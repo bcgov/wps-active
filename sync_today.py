@@ -20,5 +20,9 @@ start_date = now
 cd = '/'.join([str(start_date.year).zfill(4),
                str(start_date.month).zfill(2),
                str(start_date.day).zfill(2)]) + '/'
-cmd = 'aws s3 sync --no-sign-request s3://sentinel-products-ca-mirror/Sentinel-2/S2MSI2A/' + cd + ' ./L2_' + year + month + day + '/'
+
+L2_F = 'L2_' + year + month + day + '/'
+if not os.path.exists(L2_F):
+    os.mkdir(L2_F)
+cmd = 'aws s3 sync --no-sign-request s3://sentinel-products-ca-mirror/Sentinel-2/S2MSI2A/' + cd + ' ' + L2_F
 print(cmd)
