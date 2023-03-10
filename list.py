@@ -19,17 +19,23 @@ a = cdec("t4;00tfoujofm.qspevdut.db.njssps0")
 ls = cdec("bxt!t4!mt!..op.tjho.sfrvftu!")
 s2 = cdec("Tfoujofm.30")
 
-c1 = ls + a + s2 + 'S2MSI1C/' + '/'.join([year, month, day]) + '/' 
-c2 = ls + a + s2 + 'S2MSI2A/' + '/'.join([year, month, day]) + '/'
+c1 = ls + a + s2 + 'S2MSI1C/' # + '/'.join([year, month, day]) + '/' 
+c2 = ls + a + s2 + 'S2MSI2A/' # + '/'.join([year, month, day]) + '/'
 
-def call(c):
+def get(c):
+    print(c)
     t = [x.strip() for x in os.popen(c).read().strip().split('\n')]
-    print('\n'.join(t))
+    return '\n'.join(t)
 
+start_date = datetime.date(2022, 10, 31)
+while start_date != now: 
+    cd = '/'.join([str(start_date.year).zfill(4),
+                  str(start_date.month).zfill(2),
+                  str(start_date.day).zfill(2)]) + '/'
 
-print(c1)
-call(c1)
+    open('S2MSI1C_' + cd.replace('/', ''), 'wb').write(get(c1 + cd).encode())
+    open('S2MSI2A_' + cd.replace('/', ''), 'wb').write(get(c2 + cd).encode())
+    start_date += datetime.timedelta(days=1)
 
-print(c2)
-call(c2)
-
+open('S2MSI1C_' + cd.replace('/', ''), 'wb').write(get(c1 + cd).encode())
+open('S2MSI2A_' + cd.replace('/', ''), 'wb').write(get(c2 + cd).encode())
