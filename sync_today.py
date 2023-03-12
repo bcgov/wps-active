@@ -25,4 +25,4 @@ L2_F = 'L2_' + year + month + day + '/'
 if not os.path.exists(L2_F):
     os.mkdir(L2_F)
 cmd = 'aws s3 sync --no-sign-request s3://sentinel-products-ca-mirror/Sentinel-2/S2MSI2A/' + cd + ' ' + L2_F
-print(cmd)
+a = os.system(cmd)
