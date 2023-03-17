@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 import datetime
 
@@ -30,11 +31,11 @@ data, rows = d['Contents'], []  # extract the data records, one per dataset
 
 for d in data:
     key = d['Key'].strip()
+    modified = d['LastModified']
     w = [x.strip() for x in key.split('/')]
     if w[0] == 'Sentinel-2':
         f = w[-1]
         row = f.split('_')[5][1:]
-        rows += [row]
 
 rows = set(rows)
 
