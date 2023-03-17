@@ -3,7 +3,7 @@ import sys
 import json
 import datetime
 args = sys.argv
-rows = args[1:]
+rows = set(args[1:])
 
 now = datetime.datetime.now()  # create timestamp
 [year, month, day, hour, minute, second] = [str(now.year).zfill(4),
@@ -27,6 +27,7 @@ open(df, 'wb').write(data.encode())  # write json data to file
 d = json.loads(data)  # load the json-format data
 data = d['Contents'] # extract the data records, one per dataset
 
+latest = {}
 for d in data:
     key = d['Key'].strip()
     modified = d['LastModified']
@@ -34,8 +35,12 @@ for d in data:
     if w[0] == 'Sentinel-2':
         f = w[-1]
         row = f.split('_')[5][1:]
+        if row in rows:
+            # "2022-11-28T19:10:40.000Z"
+            if row not in latest or 
 
-rows = set(rows)
+
+
 
 bc_row = os.popen("python3 ~/GitHub/wps-research/py/sentinel2_bc_tiles_shp/bc_row.py").read().strip().split()
 # print(bc_row)
