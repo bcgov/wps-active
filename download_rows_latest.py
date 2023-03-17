@@ -53,7 +53,12 @@ for row in latest:
     modified, key = latest[row]
     f = key.split('/')[-1]
 
-    cmd = 'aws s3 cp --no-sign-request s3://sentinel-products-ca-mirror/' + key + ' ' + f
+    cmd = ' '.join(['aws',
+                    's3',
+                    'cp',
+                    '--no-sign-request',
+                    's3://sentinel-products-ca-mirror/' + key,
+                    f])
     print(cmd)
 
 
