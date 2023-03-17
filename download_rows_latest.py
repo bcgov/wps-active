@@ -50,8 +50,11 @@ for d in data:
                 latest[row] = [modified, key]
 
 for row in latest:
-    print latest[row]
+    modified, key = latest[row]
+    f = key.split('/')[-1]
 
+    cmd = 'aws s3 cp --no-sign-request s3://sentinel-products-ca-mirror/' + key + ' ' + f
+    print(cmd)
 
 
 '''
