@@ -20,4 +20,6 @@ print('+w', df)
 open(df, 'wb').write(data.encode())  # write json data to file
 
 d = json.loads(data)  # load the json-format data
-print(d)
+data = d['Contents']  # extract the data records, one per dataset
+
+
