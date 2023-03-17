@@ -35,10 +35,18 @@ for d in data:
         row = f.split('_')[5][1:]
         rows += [row]
 
-rows = list(set(rows))
-print(rows)
-print(len(rows))
+rows = set(rows)
 
 bc_row = os.popen("python3 ~/GitHub/wps-research/py/sentinel2_bc_tiles_shp/bc_row.py").read().strip().split()
 # print(bc_row)
 print(len(bc_row))
+
+bc_row = set(bc_row)
+
+for row in rows:  # check for rows that are not over bc (according to our records of the necessary rows)
+    if row not in bc_row:
+        print('Warning:', row)
+
+for row in bc_row:  # check for rows (according to our records) that are not being captured in AWS
+    if row not in rows:
+        print('Error: not found:', row)  # when we ran it, all rows were represented
