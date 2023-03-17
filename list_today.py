@@ -3,8 +3,13 @@ import os
 import sys
 import datetime
 
+bc_row = os.popen("python3 ~/GitHub/wps-research/py/sentinel2_bc_tiles_shp/bc_row.py").read().strip().split()
+print(bc_row)
+
+
 if len(os.popen("aws 2>&1").read().split("not found")) > 1:
-    print('sudo apt install awscli')
+    print('Need to install aws cli:')
+    print('  sudo apt install awscli')
     sys.exit(1)
 
 now = datetime.date.today()
