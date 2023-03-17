@@ -1,4 +1,5 @@
-''' 20230317 download the latest available data for each row
+''' 20230317 download the latest available data for each 5-character row-index/ID (tile/footprint ID) or whatever.
+List of 5-character symbols are listed as command-line arguments
 
 e.g. for:
 08UPC 10UGU 08VMK 08UPG 10UFU 08UNG 11UMV 07VFE 11ULP 09UUS 08UNF 11UNP 08VMJ 08VLJ 12UUA 10UEU 08UNE 08VLK 09UUB 11UQR 08VNJ 12UUV 08VNH 08VLH 08UMG 09UVR 11UMP 08VMH
