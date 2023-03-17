@@ -49,7 +49,7 @@ for row in rows:  # check for rows that are not over bc (according to our record
         rows_outside += [row]
 
 print('rows outside bc:')
-print(rows_outside)
+print(' '.join(rows_outside))
 
 for row in bc_row:  # check for rows (according to our records) that are not being captured in AWS
     if row not in rows:
