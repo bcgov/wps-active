@@ -43,4 +43,21 @@ open('S2MSI1C_' + cd.replace('/', ''), 'wb').write(c1_d.encode())
 c2_d = get(c2 + cd) # Level-2 data listings
 open('S2MSI2A_' + cd.replace('/', ''), 'wb').write(c2_d.encode())
 
+
+lines = [x.split() for x in c2_d.strip().split('\n')]
+for line in lines:
+    print(line)
+
+row_id = [line[-1].split('_')[5][1:] for line in lines]
+print(len(row_id))
+row_id = list(set(row_id))
+print(len(row_id))
+
+print(row_id)
+print(bc_row)
+
+for r in row_id:
+    if r not in bc_row:
+        print("Warning: ", r)
+
 # aws s3 cp  --no-sign-request s3://sentinel-products-ca-mirror/Sentinel-2/S2MSI1C/2023/03/08/S2B_MSIL1C_20230308T190239_N0509_R013_T10UFB_20230308T223026.zip S2B_MSIL1C_20230308T190239_N0509_R013_T10UFB_20230308T223026.zip

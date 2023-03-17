@@ -1,4 +1,4 @@
-'''save data by tiles'''
+'''save all available aws data (Level-2 from today)'''
 import os
 import sys
 import datetime
