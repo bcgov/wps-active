@@ -1,3 +1,7 @@
+''' 20230317 download the latest available data for each row
+
+08UPC 10UGU 08VMK 08UPG 10UFU 08UNG 11UMV 07VFE 11ULP 09UUS 08UNF 11UNP 08VMJ 08VLJ 12UUA 10UEU 08UNE 08VLK 09UUB 11UQR 08VNJ 12UUV 08VNH 08VLH 08UMG 09UVR 11UMP 08VMH
+'''
 import os
 import sys
 import json
@@ -37,28 +41,16 @@ for d in data:
         row = f.split('_')[5][1:]
         if row in rows:
             # "2022-11-28T19:10:40.000Z"
-            if row not in latest or 
+            date, time = modified.split('T')
+            date = [int(x) for x in date.split('-')]
+            time = [int(float(x)) for x in time.strip('Z').split(':')]
+            modified = datetime.datetime(date[0], date[1], date[2], time[0], time[1], time[2])
+            if (row not in latest) or (latest[row][0] > modified):
+                latest[row] = [modified, key]
 
+for row in latest:
+    print latest[row]
 
-
-
-bc_row = os.popen("python3 ~/GitHub/wps-research/py/sentinel2_bc_tiles_shp/bc_row.py").read().strip().split()
-# print(bc_row)
-print(len(bc_row))
-
-bc_row = set(bc_row)
-
-rows_outside = []
-for row in rows:  # check for rows that are not over bc (according to our records of the necessary rows)
-    if row not in bc_row:
-        rows_outside += [row]
-
-print('rows outside bc:')
-print(' '.join(rows_outside))
-
-for row in bc_row:  # check for rows (according to our records) that are not being captured in AWS
-    if row not in rows:
-        print('Error: not found:', row)  # when we ran it, all rows were represented
 
 
 '''
