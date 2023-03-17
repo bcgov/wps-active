@@ -43,9 +43,13 @@ print(len(bc_row))
 
 bc_row = set(bc_row)
 
+rows_outside = []
 for row in rows:  # check for rows that are not over bc (according to our records of the necessary rows)
     if row not in bc_row:
-        print('Warning:', row)
+        rows_outside += [row]
+
+print('rows outside bc:')
+print(rows_outside)
 
 for row in bc_row:  # check for rows (according to our records) that are not being captured in AWS
     if row not in rows:
