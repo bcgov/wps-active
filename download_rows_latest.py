@@ -2,10 +2,8 @@ import os
 import sys
 import json
 import datetime
-
-# row ID over BC from our records (thanks adyk)
-bc_row = os.popen("python3 ~/GitHub/wps-research/py/sentinel2_bc_tiles_shp/bc_row.py").read().strip().split()
-bc_row = set(bc_row)
+args = sys.argv
+rows = args[1:]
 
 now = datetime.datetime.now()  # create timestamp
 [year, month, day, hour, minute, second] = [str(now.year).zfill(4),
@@ -27,7 +25,7 @@ print('+w', df)
 open(df, 'wb').write(data.encode())  # write json data to file
 
 d = json.loads(data)  # load the json-format data
-data, rows = d['Contents'], []  # extract the data records, one per dataset
+data = d['Contents'] # extract the data records, one per dataset
 
 for d in data:
     key = d['Key'].strip()
