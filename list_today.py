@@ -6,7 +6,6 @@ import datetime
 bc_row = os.popen("python3 ~/GitHub/wps-research/py/sentinel2_bc_tiles_shp/bc_row.py").read().strip().split()
 print(bc_row)
 
-
 if len(os.popen("aws 2>&1").read().split("not found")) > 1:
     print('Need to install aws cli:')
     print('  sudo apt install awscli')
@@ -38,7 +37,10 @@ cd = '/'.join([str(start_date.year).zfill(4),
                str(start_date.month).zfill(2),
                str(start_date.day).zfill(2)]) + '/'
 
-open('S2MSI1C_' + cd.replace('/', ''), 'wb').write(get(c1 + cd).encode())
-open('S2MSI2A_' + cd.replace('/', ''), 'wb').write(get(c2 + cd).encode())
+c1_d = get(c1 + cd)  # Level-1 data listings
+open('S2MSI1C_' + cd.replace('/', ''), 'wb').write(c1_d.encode())
+
+c2_d = get(c2 + cd) # Level-2 data listings
+open('S2MSI2A_' + cd.replace('/', ''), 'wb').write(c2_d.encode())
 
 # aws s3 cp  --no-sign-request s3://sentinel-products-ca-mirror/Sentinel-2/S2MSI1C/2023/03/08/S2B_MSIL1C_20230308T190239_N0509_R013_T10UFB_20230308T223026.zip S2B_MSIL1C_20230308T190239_N0509_R013_T10UFB_20230308T223026.zip
