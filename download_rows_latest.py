@@ -11,6 +11,9 @@ import datetime
 args = sys.argv
 rows = set(args[1:])
 
+if len(rows) == 0:
+    rows = os.popen("python3 ~/GitHub/wps-research/py/sentinel2_bc_tiles_shp/bc_row.py").read().strip().split()
+
 now = datetime.datetime.now()  # create timestamp
 [year, month, day, hour, minute, second] = [str(now.year).zfill(4),
                                             str(now.month).zfill(2),
