@@ -43,25 +43,19 @@ open('S2MSI1C_' + cd.replace('/', ''), 'wb').write(c1_d.encode())
 c2_d = get(c2 + cd) # Level-2 data listings
 open('S2MSI2A_' + cd.replace('/', ''), 'wb').write(c2_d.encode())
 
-
 def my_list(c2_d):
     lines, row_id = None, None
     try:
         lines = [x.split() for x in c2_d.strip().split('\n')]
-
         for line in lines:
             print(line)
-
         row_id = [line[-1].split('_')[5][1:] for line in lines]
         row_id = list(set(row_id))
     except:
         return
-
     print("row id observed today:", len(row_id))
-
-    print("row ids observed today:", row_id)
+    print("row id observed today:", row_id)
     # print(bc_row)
-
     for r in row_id:
         if r not in bc_row:
             pass # print("Warning: ", r)
