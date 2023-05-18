@@ -1,4 +1,7 @@
-'''save all available aws data (Level-2 from today)'''
+'''save all available aws data (Level-2 from today)
+
+***Run this from the active/ folder ***
+'''
 import os
 import sys
 import datetime
