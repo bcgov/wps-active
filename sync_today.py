@@ -5,12 +5,22 @@
 import os
 import sys
 import datetime
+args = sys.argv
+
 if len(os.popen("aws 2>&1").read().split("not found")) > 1:
     print('sudo apt install awscli')
     sys.exit(1)
 
 now = datetime.date.today()
 year, month, day = str(now.year).zfill(4), str(now.month).zfill(2), str(now.day).zfill(2)
+
+if len(args) > 1:
+	t = args[1]
+	if len(t) == 8:
+		year = t[0:4]
+		month = t[4:6]
+		day = t[6:8]
+today = year + month + day
 print([year, month, day])
 
 def get(c):
@@ -18,13 +28,11 @@ def get(c):
     t = [x.strip() for x in os.popen(c).read().strip().split('\n')]
     return '\n'.join(t)
 
-start_date = now
+cd = '/'.join([year, 
+			   month,
+			   day]) + '/'
 
-cd = '/'.join([str(start_date.year).zfill(4),
-               str(start_date.month).zfill(2),
-               str(start_date.day).zfill(2)]) + '/'
-
-L2_F = 'L2_' + year + month + day + '/'
+L2_F = 'L2_' + today + '/'
 if not os.path.exists(L2_F):
     os.mkdir(L2_F)
 cmd = 'aws s3 sync --no-sign-request s3://sentinel-products-ca-mirror/Sentinel-2/S2MSI2A/' + cd + ' ' + L2_F
