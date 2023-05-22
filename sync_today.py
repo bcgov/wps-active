@@ -33,7 +33,16 @@ cd = '/'.join([year,
 			   day]) + '/'
 
 L2_F = 'L2_' + today + '/'
-if not os.path.exists(L2_F):
-    os.mkdir(L2_F)
+L1_F = 'L1_' + today + '/'
+for d in [L1_F, L2_F]:
+	if not os.path.exists(d):
+		os.mkdir(d)
+
+cmd = 'aws s3 sync --no-sign-request s3://sentinel-products-ca-mirror/Sentinel-2/S2MSI1C/' + cd + ' ' + L1_F
+a = os.system(cmd)
+
 cmd = 'aws s3 sync --no-sign-request s3://sentinel-products-ca-mirror/Sentinel-2/S2MSI2A/' + cd + ' ' + L2_F
 a = os.system(cmd)
+
+
+
