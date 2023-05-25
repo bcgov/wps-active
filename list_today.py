@@ -1,6 +1,8 @@
 '''Jurisdiction specific (to be updated to be jurisdiction-flexible):
 
 Determine the gid (grid-ID) for which Sentinel-2 data captured today are available
+
+TODO: put the BC-specific gid info for Sentinel-2, into this repo and add gid info for other jurisdictions 
 '''
 import os
 import sys
