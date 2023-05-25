@@ -7,8 +7,8 @@ import sys
 import datetime
 args = sys.argv
 
-if len(os.popen("aws 2>&1").read().split("not found")) > 1:
-    print('sudo apt install awscli')
+if len(os.popen("aws 2>&1").read().split("not found")) > 1:  # check for aws cli
+    print('Error: aws cli not found. To install on debian/ubuntu:\n  sudo apt install awscli')
     sys.exit(1)
 
 now = datetime.date.today()
