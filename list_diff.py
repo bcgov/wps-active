@@ -1,5 +1,7 @@
 '''20230317 relative to Sentinel-2 tiles selected by us, determine at a point in time:
     which records have been added since the last run.
+
+TODO: copy the script to retrieve the jurisdiction-specific (e.g. BC) grid-id, to this repo. 
 '''
 import os
 import sys
