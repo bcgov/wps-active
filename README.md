@@ -12,4 +12,4 @@ Will update this to:
 ```
 python3 download_gid_latest.py [gid #1] [gid #2] .. [gid #N]
 ```
-to download only the most-recent data for a list of ["grid id"](https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59)
+to download only the most-recent data for a list of ["grid id"](https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59) (i.e. specific persistent footprints based on UTM coordinate system)
