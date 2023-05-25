@@ -1,4 +1,4 @@
-# Sentinel-2 fire mapping application
+# Sentinel-2 active fire mapping
 Currently this repo only reflects data download e.g. 
 * download *all of Sentinel-2 data captured today that are available in the bucket*  
 
