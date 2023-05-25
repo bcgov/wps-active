@@ -25,8 +25,9 @@ Information in this repo restricted to the following teams:
 * NRCan/GSDI
 * BC Wildfire/Predictive Services Unit 
 
-Tech notes:
+Tech note:
 * NB tested in posix environment. May contain '/' that need be replaced with os.path.sep to be Windows compatible.
+
 ### To be added
 Features to be added:
 * GDAL-based unpacking / resampling
