@@ -2,7 +2,7 @@ import os
 import json
 import datetime
 
-# row ID over BC from our records (thanks adyk)
+# grid-ID over BC from our records (thanks adyk at PFC)
 bc_row = os.popen("python3 ~/GitHub/wps-research/py/sentinel2_bc_tiles_shp/bc_row.py").read().strip().split()
 
 now = datetime.datetime.now()  # create timestamp
