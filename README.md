@@ -21,7 +21,7 @@ to download only the most-recent data for a list of ["grid id"](https://eatlas.o
 # Notes
 Information in this repo restricted to the following teams:
 * NRCan/WildFireSat
-* NRcan/EGS
+* NRCan/EGS
 * NRCan/GSDI
 * BC Wildfire/Predictive Services Unit 
 
