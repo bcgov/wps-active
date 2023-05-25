@@ -53,6 +53,7 @@ def my_list(c2_d):
         row_id = list(set(row_id))
     except:
         return
+    row_id.sort()
     print("row id observed today:", len(row_id))
     print("row id observed today:", row_id)
     # print(bc_row)
