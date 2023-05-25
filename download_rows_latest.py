@@ -1,10 +1,10 @@
-''' 20230317 download the latest available data for each 5-character footprint ID, Sentinel-2 is gridded on a regular pattern so we can use those 5-char patterns to identify the footprints we want to download data on. 
+''' 20230317 download the latest available data for each 5-character "UTM tiling-grid ID" https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59
 
-A List of those 5-character symbols provided to this script as command-line arguments
+A List of those 5-character codes are provided to this script as command-line arguments
 
-e.g. for:
+e.g. tested this for:
 08UPC 10UGU 08VMK 08UPG 10UFU 08UNG 11UMV 07VFE 11ULP 09UUS 08UNF 11UNP 08VMJ 08VLJ 12UUA 10UEU 08UNE 08VLK 09UUB 11UQR 08VNJ 12UUV 08VNH 08VLH 08UMG 09UVR 11UMP 08VMH
-'''
+over BC'''
 import os
 import sys
 import json
