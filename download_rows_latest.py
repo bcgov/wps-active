@@ -65,6 +65,7 @@ for row in latest:
                     's3://sentinel-products-ca-mirror/' + key,
                     f])
     print(cmd)
+    # a = os.system(cmd) # uncomment this to do the download.
 
 
 '''
