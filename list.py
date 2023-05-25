@@ -1,4 +1,4 @@
-'''save data by tiles'''
+'''save data by tiles. NB this file includes obfuscation of Download paths which can be removed later'''
 import os
 import sys
 import datetime
