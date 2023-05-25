@@ -1,4 +1,7 @@
-'''save data by tiles'''
+'''Jurisdiction specific (to be updated to be jurisdiction-flexible):
+
+Determine the gid (grid-ID) for which Sentinel-2 data captured today are available
+'''
 import os
 import sys
 import datetime
