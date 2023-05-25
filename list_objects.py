@@ -1,3 +1,7 @@
+'''Make a list of objects in the AWS bucket that are captured.
+
+*** Determine if all the grid-ID (gid) in our jurisdiction, are in fact reflected in the mirrored data.
+'''
 import os
 import json
 import datetime
