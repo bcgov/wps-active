@@ -24,3 +24,6 @@ to download only the most-recent data for a list of ["grid id"](https://eatlas.o
 Features to be added:
 * GDAL-based unpacking / resampling
 * CIFFC-database search and intersection operation to determine incident-specific gid (grid-ID) i.e. download incident specific data for any Canadian jurisdiction
+* 2022 active fire detection rule
+* 2023 hotspot detection rule
+* ML-based extension based on library of operational, human-refined reference data
