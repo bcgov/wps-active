@@ -1,4 +1,7 @@
-NB tested in posix environment. May contain '/' that need be replaced with os.path.sep to be Windows compatible.
+# Sentinel-2 fire mapping application
+Currently this repo only reflects data download e.g. *all of today's Sentinel-2 data available in the bucket"  
+
+* NB tested in posix environment. May contain '/' that need be replaced with os.path.sep to be Windows compatible.
 ### Pull all data captured today
 Currently using:
 ```
