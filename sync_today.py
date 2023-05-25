@@ -1,6 +1,6 @@
-'''save all available aws data (Level-2 from today)
+'''save all available aws data (Level-2 from today) NB data are saved to subfolder of "present working directory"
 
-***Run this from the active/ folder ***
+***e.g. Run this from active/ folder where active detection stuff lives***
 '''
 import os
 import sys
