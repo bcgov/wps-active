@@ -1,7 +1,6 @@
 '''save all available aws data (Level-2 from today) NB data are saved to subfolder of "present working directory"
 
-***e.g. Run this from active/ folder where active detection stuff lives***
-'''
+***e.g. Run this from active/ folder where active detection stuff lives***'''
 import os
 import sys
 import datetime
@@ -38,11 +37,9 @@ for d in [L1_F, L2_F]:
 	if not os.path.exists(d):
 		os.mkdir(d)
 
+# comment these two lines out to skip Level-1 (L1) data
 cmd = 'aws s3 sync --no-sign-request s3://sentinel-products-ca-mirror/Sentinel-2/S2MSI1C/' + cd + ' ' + L1_F
 a = os.system(cmd)
 
 cmd = 'aws s3 sync --no-sign-request s3://sentinel-products-ca-mirror/Sentinel-2/S2MSI2A/' + cd + ' ' + L2_F
 a = os.system(cmd)
-
-
-
