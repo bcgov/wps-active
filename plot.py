@@ -1,3 +1,5 @@
+'''print info for Sentinel2 zip files downloaded to current directory
+'''
 import os
 import sys
 
