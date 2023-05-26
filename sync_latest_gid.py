@@ -98,3 +98,4 @@ print(gids)
 
 #  make it go
 download_by_gids(gids)
+print('done')
