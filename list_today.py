@@ -7,9 +7,10 @@ TODO: put the BC-specific gid info for Sentinel-2, into this repo and add gid in
 import os
 import sys
 import datetime
+from gid import bc
 
-bc_row = os.popen("python3 ~/GitHub/wps-research/py/sentinel2_bc_tiles_shp/bc_row.py").read().strip().split()
-print("bc row-id under obs:", bc_row)
+bc_gid = bc()
+print("bc row-id under obs:", bc_gid)
 
 if len(os.popen("aws 2>&1").read().split("not found")) > 1:
     print('Need to install aws cli:')
@@ -61,9 +62,9 @@ def my_list(c2_d):
     row_id.sort()
     print("row id observed today:", len(row_id))
     print("row id observed today:", row_id)
-    # print(bc_row)
+    # print(bc_gid)
     for r in row_id:
-        if r not in bc_row:
+        if r not in bc_gid:
             pass # print("Warning: ", r)
 
 
