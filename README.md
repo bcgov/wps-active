@@ -8,6 +8,11 @@ python3 sync_latest_gid.py [gid #1] [gid #2] .. [gid #N]
 ```
 to download only the most-recent data for a list of ["grid id"](https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59) (i.e. specific persistent footprints based on UTM coordinate system)
 
+Currently this downloads the latest data for BC:
+```
+python3 sync_latest_gid.py
+```
+
 ### For jurisdiction-specific grid-id, pull data for specific date only
 ```
 sync_date_gid.py 20230525 # example: pull data over bc for May 25, 2023
