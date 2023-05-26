@@ -16,11 +16,7 @@ sync_date_gid.py 20230525 # example: pull data over bc for May 25, 2023
 # Deprecated
 ### The firehose: Pull all of today's captures
 ```
-python3 sync_today_all.py
-```
-or
-```
-python3 sync_today_all.py yyyymmdd # sync all data from yyyymmdd
+python3 sync_today_all.py # [yyyymmdd]: optional arg: ync all data from yyyymmdd
 ```
 # Notes
 Information in this repo restricted to the following teams:
