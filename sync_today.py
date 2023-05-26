@@ -1,4 +1,5 @@
-'''Save all available aws data (Level-2 from today). NB data are saved to
+'''The firehose: 
+Save all available aws data (Level-2 from today). NB data are saved to
 subfolder of "present working directory"
 ***e.g. cd to a folder on a large storage device'''
 import os
