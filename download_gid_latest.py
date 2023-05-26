@@ -37,7 +37,7 @@ def download_by_gids(gids):
     # backup json data for possible reanalysis
     if not os.path.exists(my_path + 'listing'):
         os.mkdir(my_path + 'listing')
-    df = mypath + 'listing' + sep + ts + '_objects.txt'  # file to write
+    df = my_path + 'listing' + sep + ts + '_objects.txt'  # file to write
     print('+w', df)
     open(df, 'wb').write(data.encode())  # record json data to file
 
