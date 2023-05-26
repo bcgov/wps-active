@@ -1,14 +1,7 @@
-''' 20230317 download latest avail. data for each 6-char "UTM tiling-grid ID":
+''' 20230317 download data for each 6-char "UTM tiling-grid ID":
         https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59
-
-    * can provide a list of such 5-character codes, as command args
-        e.g. tested this for (over BC):
-            T08UPC T10UGU T08VMK T08UPG T10UFU T08UNG T11UMV T07VFE T11ULP
-NB this script pulls latest frame for the seleted gid, whether L1 or L2
-    20230525: update from 5-letter code (T prefix) to general 6-letter code
-    20230525: include BC gid in this file
-    20230525: handle fetching multiple zip file for the same (date, gid)
-    20230525: need to modify this to use the L2_ etc. folder convention
+for specified date: yyyymmdd 
+only
 '''
 import os
 import sys
