@@ -82,7 +82,7 @@ def download_by_gids(gids):
 # get gids from command line
 gids = set(args[1:])
 
-if gids == []:  # if no gids provided, default to all gids for BCa
+if len(gids) == 0:  # if no gids provided, default to all gids for BCa
     gids = ['T09UXR', 'T10UGB', 'T09VVF', 'T10UCG', 'T10UDG', 'T11ULB',
             'T11ULT', 'T09VWG', 'T10UFF', 'T11UPQ', 'T08VPK', 'T07VFG',
             'T09VXF', 'T10UCE', 'T08VPL', 'T10UFV', 'T09UWA', 'T10UCF',
