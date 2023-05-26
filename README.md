@@ -7,6 +7,11 @@ Currently this repo only reflects data download e.g.
 ```
 python3 sync_today_all.py
 ```
+or
+```
+python3 sync_today_all.py yyyymmdd # sync all data from yyyymmdd
+```
+
 ### For specific grid-id, pull most recent data only
 ```
 python3 sync_latest_gid.py [gid #1] [gid #2] .. [gid #N]
