@@ -4,7 +4,11 @@ A List of those 5-character codes are provided to this script as command-line ar
 
 e.g. tested this for:
 08UPC 10UGU 08VMK 08UPG 10UFU 08UNG 11UMV 07VFE 11ULP 09UUS 08UNF 11UNP 08VMJ 08VLJ 12UUA 10UEU 08UNE 08VLK 09UUB 11UQR 08VNJ 12UUV 08VNH 08VLH 08UMG 09UVR 11UMP 08VMH
-over BC'''
+over BC
+
+
+20230525: NB the gid are generally 6-character codes. We started with 5-letter codes since the codes over BC start with T.
+'''
 import os
 import sys
 import json
