@@ -1,10 +1,7 @@
 # Sentinel-2 active fire mapping
-Currently this repo only reflects data download e.g. 
-* download *all of Sentinel-2 data captured today that are available in the bucket*  
+Currently this repo only reflects data download 
 
-# Functions 
-
-## Current
+# Current functions
 ### For specific grid-id, pull most recent data only
 ```
 python3 sync_latest_gid.py [gid #1] [gid #2] .. [gid #N]
@@ -16,7 +13,7 @@ to download only the most-recent data for a list of ["grid id"](https://eatlas.o
 sync_date_gid.py 20230525 # example: pull data over bc for May 25, 2023
 ```
 
-## Deprecated
+# Deprecated
 ### The firehose: Pull all of today's captures
 ```
 python3 sync_today_all.py
