@@ -1,10 +1,7 @@
 # Sentinel-2 active fire mapping
-Currently this repo only reflects data download e.g. 
-* download *all of Sentinel-2 data captured today that are available in the bucket*  
+Currently this repo only reflects data download 
 
-# Functions 
-
-## Current
+## Functions
 ### For specific grid-id, pull most recent data only
 ```
 python3 sync_latest_gid.py [gid #1] [gid #2] .. [gid #N]
@@ -19,11 +16,7 @@ sync_date_gid.py 20230525 # example: pull data over bc for May 25, 2023
 ## Deprecated
 ### The firehose: Pull all of today's captures
 ```
-python3 sync_today_all.py
-```
-or
-```
-python3 sync_today_all.py yyyymmdd # sync all data from yyyymmdd
+python3 sync_today_all.py # [yyyymmdd]: optional arg: sync all data from yyyymmdd
 ```
 # Notes
 Information in this repo restricted to the following teams:
@@ -34,9 +27,9 @@ Information in this repo restricted to the following teams:
 
 ### To be added
 Features to be added:
-* Filter for BC and/or other prov/territoriy since coverage expanded beyond BC
-* GDAL-based unpacking / resampling
+* Filter for BC and/or other prov/territoriy since coverage expanded beyond BC (DONE 20230526)
 * CIFFC-database search and intersection operation to determine incident-specific gid (grid-ID) i.e. download incident specific data for any Canadian jurisdiction
+* GDAL-based unpacking / resampling
 * 2022 active fire detection rule
 * 2023 hotspot detection rule
 * ML-based extension based on library of operational, human-refined reference data
