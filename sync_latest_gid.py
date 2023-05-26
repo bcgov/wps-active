@@ -8,6 +8,7 @@ NB this script pulls latest frame for the seleted gid, whether L1 or L2
     20230525: update from 5-letter code (T prefix) to general 6-letter code
     20230525: include BC gid in this file
     20230525: handle fetching multiple zip file for the same (date, gid)
+    20230525: need to modify this to use the L2_ etc. folder convention
 '''
 import os
 import sys
@@ -78,13 +79,14 @@ def download_by_gids(gids):
             print(cmd)
             # a = os.system(cmd) # uncomment this to do the download.
 
-
 # get gids from command line
 gids = set(args[1:])
 
 if len(gids) == 0:  # if no gids provided, default to all gids for BC
     from gid import bc
     gids = bc()
+
+print(gids)
 
 #  make it go
 download_by_gids(gids)
