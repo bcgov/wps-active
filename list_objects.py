@@ -1,6 +1,5 @@
-'''Make a list of objects in the AWS bucket that are captured.
-
-*** Determine if all the grid-ID (gid) in our jurisdiction, are in fact reflected in the mirrored data.
+'''Make a list of objects in the AWS bucket that are captured. E.g.:
+*** Confirm that all grid-ID (gid) in our jurisdiction, are captured in the mirror.
 '''
 import os
 import json
