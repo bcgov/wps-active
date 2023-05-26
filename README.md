@@ -3,12 +3,11 @@ Currently this repo only reflects data download e.g.
 * download *all of Sentinel-2 data captured today that are available in the bucket*  
 
 # Functions 
-### Pull all data captured today
-Currently using:
+### The firehose: Pull all of today's captures
 ```
-python3 sync_today.py
+python3 sync_today_all.py
 ```
-### Pull only most-recent data for specific grid-id
+### For specific grid-id, pull most recent data only
 ```
 python3 download_gid_latest.py [gid #1] [gid #2] .. [gid #N]
 ```
