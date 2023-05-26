@@ -6,7 +6,9 @@ e.g. tested this for:
 T08UPC T10UGU T08VMK T08UPG T10UFU T08UNG T11UMV T07VFE T11ULP T09UUS T08UNF T11UNP T08VMJ T08VLJ T12UUA T10UEU T08UNE T08VLK T09UUB T11UQR T08VNJ T12UUV T08VNH T08VLH T08UMG T09UVR T11UMP T08VMH
 over BC
 
-20230525: update from 5-letter code (T prefix) to general 6-letter code'''
+20230525: update from 5-letter code (T prefix) to general 6-letter code
+
+NB this script will pull the latest frame for the seleted gid, regardless of whether it's L1 or L2'''
 import os
 import sys
 import json
