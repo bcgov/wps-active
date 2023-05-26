@@ -8,7 +8,8 @@ over BC
 
 20230525: update from 5-letter code (T prefix) to general 6-letter code
 
-NB this script will pull the latest frame for the seleted gid, regardless of whether it's L1 or L2'''
+NB this script pulls latest frame for the seleted gid, regardless of whether it's L1 or L2
+NB sometimes multiple objects are available for a given gid, same day. Sometimes the contents are partially overlapping so this script is not a reliable method to ensure absolutely 100% of the available data are retreived'''
 import os
 import sys
 import json
@@ -16,8 +17,8 @@ import datetime
 args = sys.argv
 gids = set(args[1:])
 
-if len(gids) == 0:
-    gids = os.popen("python3 ~/GitHub/wps-research/py/sentinel2_bc_tiles_shp/bc_gid.py").read().strip().split()
+if len(gids) == 0:  # default to all footprints over BC
+    gids = open('gid/BC').read().strip().split()
 
 now = datetime.datetime.now()  # create timestamp: yyyymmddhhmmss
 [year, month, day, hour, minute, second] = [str(now.year).zfill(4),
@@ -36,26 +37,24 @@ data = os.popen(' '.join(['aws',  # read data from aws
 
 df = ts + '_objects.txt'  # file to write
 print('+w', df)
-open(df, 'wb').write(data.encode())  # write json data to file
+open(df, 'wb').write(data.encode())  # record json data to file
 
-d = json.loads(data)  # load the json-format data
-data = d['Contents'] # extract the data records, one per dataset
 
 latest = {}
+d = json.loads(data)  # parse the json-format data
+data = d['Contents'] # extract the data records, one per dataset
 for d in data:
-    key = d['Key'].strip()
-    modified = d['LastModified']
+    key, modified = d['Key'].strip(), d['LastModified']
     w = [x.strip() for x in key.split('/')]
     if w[0] == 'Sentinel-2':
-        f = w[-1]
-        gid = f.split('_')[5]
-        if gid in gids:
-            # "2022-11-28T19:10:40.000Z"
+        f, gid = w[-1], f.split('_')[5]
+        if gid in gids: # "2022-11-28T19:10:40.000Z"
             date, time = modified.split('T')
             date = [int(x) for x in date.split('-')]
             time = [int(float(x)) for x in time.strip('Z').split(':')]
             modified = datetime.datetime(date[0], date[1], date[2], time[0], time[1], time[2])
-            
+ 
+            # record latest observation this gid           
             if (gid not in latest) or (latest[gid][0] > modified):
                 latest[gid] = [modified, key]
 
@@ -72,11 +71,8 @@ for gid in latest:
     print(cmd)
     # a = os.system(cmd) # uncomment this to do the download.
 
-
-'''
-# example output:
+''' # example output:
 aws s3 cp --no-sign-request s3://sentinel-products-ca-mirror/Sentinel-2/S2MSI2A/2023/03/15/S2B_MSIL2A_20230315T185139_N0509_R113_T10UGU_20230315T230515.zip S2B_MSIL2A_20230315T185139_N0509_R113_T10UGU_20230315T230515.zip
 aws s3 cp --no-sign-request s3://sentinel-products-ca-mirror/Sentinel-2/S2MSI2A/2023/03/16/S2B_MSIL2A_20230316T200159_N0509_R128_T08UPC_20230316T223836.zip S2B_MSIL2A_20230316T200159_N0509_R128_T08UPC_20230316T223836.zip
 aws s3 cp --no-sign-request s3://sentinel-products-ca-mirror/Sentinel-2/S2MSI2A/2023/03/16/S2B_MSIL2A_20230316T200159_N0509_R128_T08UPG_20230316T223836.zip S2B_MSIL2A_20230316T200159_N0509_R128_T08UPG_20230316T223836.zip
-# ...
-'''
+# ... '''
