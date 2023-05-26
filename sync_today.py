@@ -32,7 +32,7 @@ def get(c):  # get STDOUT output of command 'c'; remove extra whitespace
     return '\n'.join(t)
 
 
-cd = sep.join([year,  month,  day]) + sep
+cd = '/'.join([year,  month,  day]) + '/'
 L2_F, L1_F = 'L2_' + today + sep, 'L1_' + today + sep
 for d in [L1_F, L2_F]:
     if not os.path.exists(d):
