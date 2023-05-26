@@ -1,15 +1,15 @@
-''' 20230317 download the latest available data for each 6-character "UTM tiling-grid ID" https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59
-
-A List of those 5-character codes are provided to this script as command-line arguments
+''' 20230317 download latest avail. data for each 6-character "UTM tiling-grid ID" https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59
+* can provide a list of such 5-character codes, to this script as command args
 
 e.g. tested this for:
 T08UPC T10UGU T08VMK T08UPG T10UFU T08UNG T11UMV T07VFE T11ULP T09UUS T08UNF T11UNP T08VMJ T08VLJ T12UUA T10UEU T08UNE T08VLK T09UUB T11UQR T08VNJ T12UUV T08VNH T08VLH T08UMG T09UVR T11UMP T08VMH
 over BC
 
-20230525: update from 5-letter code (T prefix) to general 6-letter code
-
 NB this script pulls latest frame for the seleted gid, regardless of whether it's L1 or L2
-NB sometimes multiple objects are available for a given gid, same day. Sometimes the contents are partially overlapping so this script is not a reliable method to ensure absolutely 100% of the available data are retreived'''
+
+20230525: update from 5-letter code (T prefix) to general 6-letter code
+20230525: fetch multiple zip file for the same (date, gid) if there are multiple such zip files! 
+'''
 import os
 import sys
 import json
@@ -54,22 +54,25 @@ for d in data:
             time = [int(float(x)) for x in time.strip('Z').split(':')]
             modified = datetime.datetime(date[0], date[1], date[2], time[0], time[1], time[2])
  
-            # record latest observation this gid           
+            # record latest observation(s) this gid           
             if (gid not in latest) or (latest[gid][0] > modified):
-                latest[gid] = [modified, key]
+				if not gid in latest:
+					latest[gid] = []
+                latest[gid] += [[modified, key]]
 
 for gid in latest:
-    modified, key = latest[gid]
-    f = key.split('/')[-1]
+    for a_latest in latest:
+        modified, key = latest[gid]
+        f = key.split('/')[-1]
 
-    cmd = ' '.join(['aws',
-                    's3',
-                    'cp',
-                    '--no-sign-request',
-                    's3://sentinel-products-ca-mirror/' + key,
-                    f])
-    print(cmd)
-    # a = os.system(cmd) # uncomment this to do the download.
+        cmd = ' '.join(['aws',
+                        's3',
+                        'cp',
+                        '--no-sign-request',
+                        's3://sentinel-products-ca-mirror/' + key,
+                        f])
+        print(cmd)
+        # a = os.system(cmd) # uncomment this to do the download.
 
 ''' # example output:
 aws s3 cp --no-sign-request s3://sentinel-products-ca-mirror/Sentinel-2/S2MSI2A/2023/03/15/S2B_MSIL2A_20230315T185139_N0509_R113_T10UGU_20230315T230515.zip S2B_MSIL2A_20230315T185139_N0509_R113_T10UGU_20230315T230515.zip
