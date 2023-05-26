@@ -3,12 +3,13 @@ subfolder of "present working directory"
 ***e.g. cd to a folder on a large storage device'''
 import os
 import sys
+import shutil
 import datetime
 args, sep = sys.argv, os.path.sep
 
-if len(os.popen("aws 2>&1").read().split("not found")) > 1:
-    print('Error: aws cli not found. To install on debian/ubuntu:')
-    print('  sudo apt install awscli')
+if shutil.which('aws') is None:
+    print('Error: aws cli not found. please check path variable and/or install')
+    print('  sudo apt install awscli  # e.g. install for ubuntu/debian')
     sys.exit(1)
 
 now = datetime.date.today()
