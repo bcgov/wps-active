@@ -33,13 +33,13 @@ def download_by_gids(gids, date_string):
                     'list-objects',
                     '--no-sign-request',
                     '--bucket sentinel-products-ca-mirror'])
-    print(cmd)
+    # print(cmd)
     data = os.popen(cmd).read()
 
     if not exists(my_path + 'listing'):  # json backup for analysis
         os.mkdir(my_path + 'listing')
     df = my_path + 'listing' + sep + ts + '_objects.txt'  # file to write
-    print('+w', df)
+    # print('+w', df)
     open(df, 'wb').write(data.encode())  # record json to file
 
     latest = {}
@@ -75,8 +75,7 @@ gids = [] # set(args[1:])
 if len(gids) == 0:  # if no gids provided, default to all gids for BC
     from gid import bc
     gids = bc()
-
-print(gids)
+# print(agids)
 
 yyyymmdd = args[1]
 if len(yyyymmdd) != 8:
