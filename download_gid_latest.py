@@ -47,7 +47,8 @@ for d in data:
     key, modified = d['Key'].strip(), d['LastModified']
     w = [x.strip() for x in key.split('/')]
     if w[0] == 'Sentinel-2':
-        f, gid = w[-1], f.split('_')[5]
+        f = w[-1]
+        gid = f.split('_')[5]
         if gid in gids: # "2022-11-28T19:10:40.000Z"
             date, time = modified.split('T')
             date = [int(x) for x in date.split('-')]
@@ -56,8 +57,8 @@ for d in data:
  
             # record latest observation(s) this gid           
             if (gid not in latest) or (latest[gid][0] > modified):
-				if not gid in latest:
-					latest[gid] = []
+                if not gid in latest:
+                    latest[gid] = []
                 latest[gid] += [[modified, key]]
 
 for gid in latest:
