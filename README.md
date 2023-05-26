@@ -3,14 +3,6 @@ Currently this repo only reflects data download e.g.
 * download *all of Sentinel-2 data captured today that are available in the bucket*  
 
 # Functions 
-### The firehose: Pull all of today's captures
-```
-python3 sync_today_all.py
-```
-or
-```
-python3 sync_today_all.py yyyymmdd # sync all data from yyyymmdd
-```
 
 ### For specific grid-id, pull most recent data only
 ```
@@ -18,6 +10,14 @@ python3 sync_latest_gid.py [gid #1] [gid #2] .. [gid #N]
 ```
 to download only the most-recent data for a list of ["grid id"](https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59) (i.e. specific persistent footprints based on UTM coordinate system)
 
+### The firehose (deprecated): Pull all of today's captures
+```
+python3 sync_today_all.py
+```
+or
+```
+python3 sync_today_all.py yyyymmdd # sync all data from yyyymmdd
+```
 # Notes
 Information in this repo restricted to the following teams:
 * NRCan/WildFireSat
