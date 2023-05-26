@@ -55,7 +55,7 @@ def download_by_gids(gids):
             ts = fw[2].split('T')[0]  # e.g. 20230525
             if fw[1] != 'MSIL2A':
                 continue
-            print(w)
+            # print(w)
 
             if gid in gids:  # consider record if has selected gid
                 date_str, time = modified.split('T')
