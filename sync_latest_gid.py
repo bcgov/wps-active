@@ -50,37 +50,42 @@ def download_by_gids(gids):
         w = [x.strip() for x in key.split('/')]
         if w[0] == 'Sentinel-2':
             f = w[-1]
-            gid = f.split('_')[5]  # e.g. T10UGU
+            fw = f.split('_')
+            gid = fw[5]  # e.g. T10UGU
+            ts = fw[2].split('T')[0]  # e.g. 20230525
+            if fw[1] != 'MSIL2A':
+                continue
+            print(w)
 
-            if gid in gids:  # look at record if selected gid
-                date, time = modified.split('T')
-                date = [int(x) for x in date.split('-')]
+            if gid in gids:  # consider record if has selected gid
+                date_str, time = modified.split('T')
+                date = [int(x) for x in date_str.split('-')]
                 time = [int(float(x)) for x in time.strip('Z').split(':')]
-                modified = datetime.datetime(date[0], date[1], date[2],
-                                             time[0], time[1], time[2])
 
                 # record latest observation(s) for this gid
-                if (gid not in latest) or modified > latest[gid][0][0]:
+                if (gid not in latest) or ts > latest[gid][0][0]:
                     if gid not in latest:
                         latest[gid] = []
-                    latest[gid] = [[modified, key]] + latest[gid]  # put more recent dates first
+                    latest[gid] = [[ts, key]] + latest[gid]  # put more recent dates first
 
     for gid in latest:
-        modified_latest = latest[gid][0][0]
+        ts_latest = latest[gid][0][0]
         for latest_i in latest[gid]:
-            modified, key = latest_i
-            if modified != modified_latest:
+            ts, key = latest_i
+            if ts != ts_latest:
                 break
             f = key.split('/')[-1]
 
+            dest = 'L2_' + ts + sep + f
             cmd = ' '.join(['aws',
                             's3',
                             'cp',
                             '--no-sign-request',
                             's3://sentinel-products-ca-mirror/' + key,
-                            f])
-            print(cmd)
-            # a = os.system(cmd) # uncomment this to do the download.
+                            dest])
+            if not exists(dest):
+                print(cmd)
+                a = os.system(cmd) # uncomment this to do the download.
 
 # get gids from command line
 gids = set(args[1:])
