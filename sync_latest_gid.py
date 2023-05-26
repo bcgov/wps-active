@@ -52,7 +52,7 @@ def download_by_gids(gids):
             f = w[-1]
             gid = f.split('_')[5]  # e.g. T10UGU
 
-            if gid in gids:  # look at selected gid
+            if gid in gids:  # look at record if selected gid
                 date, time = modified.split('T')
                 date = [int(x) for x in date.split('-')]
                 time = [int(float(x)) for x in time.strip('Z').split(':')]
@@ -60,14 +60,17 @@ def download_by_gids(gids):
                                              time[0], time[1], time[2])
 
                 # record latest observation(s) for this gid
-                if (gid not in latest) or (latest[gid][0][0] > modified):
+                if (gid not in latest) or modified > latest[gid][0][0]:
                     if gid not in latest:
                         latest[gid] = []
-                    latest[gid] += [[modified, key]]
+                    latest[gid] = [[modified, key]] + latest[gid]  # put more recent dates first
 
     for gid in latest:
+        modified_latest = latest[gid][0][0]
         for latest_i in latest[gid]:
             modified, key = latest_i
+            if modified != modified_latest:
+                break
             f = key.split('/')[-1]
 
             cmd = ' '.join(['aws',
