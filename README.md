@@ -8,10 +8,6 @@ Currently using:
 ```
 python3 sync_today.py
 ```
-Will update this to:
-* ignore L1, since Will will be turning that off.
-* filter for BC and other prov/territory since the coverage is expanded beyond BC
-
 ### Pull only most-recent data for specific grid-id
 ```
 python3 download_gid_latest.py [gid #1] [gid #2] .. [gid #N]
@@ -25,11 +21,9 @@ Information in this repo restricted to the following teams:
 * NRCan/GSDI
 * BC Wildfire/Predictive Services Unit 
 
-Tech note:
-* NB tested in posix environment. May contain '/' that need be replaced with os.path.sep to be Windows compatible.
-
 ### To be added
 Features to be added:
+* Filter for BC and/or other prov/territoriy since coverage expanded beyond BC
 * GDAL-based unpacking / resampling
 * CIFFC-database search and intersection operation to determine incident-specific gid (grid-ID) i.e. download incident specific data for any Canadian jurisdiction
 * 2022 active fire detection rule
