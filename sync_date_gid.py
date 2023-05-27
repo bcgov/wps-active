@@ -39,7 +39,7 @@ def download_by_gids(gids, date_string):
     open(df, 'wb').write(data.encode())  # record json to file
 
     latest = {}
-    d = json.loads(data)  # parse the json
+    d = json.loads(data)  # parse json
     data = d['Contents']  # extract the data records, one per dataset
     for d in data:
         key, modified, file_size = d['Key'].strip(), d['LastModified'], d['Size']
@@ -52,8 +52,7 @@ def download_by_gids(gids, date_string):
             if fw[1] != 'MSIL2A' or ts != date_string or gid not in gids:  # only level-2 for selected date and gid
                 continue
             # print(d)
-
-            f = key.split('/')[-1]
+            # f = key.split('/')[-1]
             dest = 'L2_' + ts + sep + f
             cmd = ' '.join(['aws',
                             's3',
@@ -61,15 +60,9 @@ def download_by_gids(gids, date_string):
                             '--no-sign-request',
                             's3://sentinel-products-ca-mirror/' + key,
                             dest])
-            if not exists(dest):
-                pass
+            if not exists(dest) or file_size != os.path.getsize(dest):
                 print(cmd)
                 a = os.system(cmd) # uncomment this to do the download.
-            else:
-                if file_size != os.path.getsize(dest):
-                    print("WARNING: wrong size")
-
-    
 
 # get gids from command line
 gids = [] # set(args[1:])
