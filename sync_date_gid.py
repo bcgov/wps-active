@@ -1,7 +1,10 @@
-''' 20230317 download data for each 6-char "UTM tiling-grid ID":
+''' 20230526 download data for each 6-char "UTM tiling-grid ID":
         https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59
-for specified date: yyyymmdd 
-only
+specified, 
+for specified date: yyyymmdd only
+
+python3 sync_date_gid.py [date: yyyymmdd] e.g.
+python3 sync_date_gid.py 20230525
 '''
 import os
 import sys
@@ -39,7 +42,7 @@ def download_by_gids(gids, date_string):
     d = json.loads(data)  # parse the json
     data = d['Contents']  # extract the data records, one per dataset
     for d in data:
-        key, modified = d['Key'].strip(), d['LastModified']
+        key, modified, file_size = d['Key'].strip(), d['LastModified'], d['Size']
         w = [x.strip() for x in key.split('/')]
         if w[0] == 'Sentinel-2':
             f = w[-1]
@@ -48,7 +51,7 @@ def download_by_gids(gids, date_string):
             ts = fw[2].split('T')[0]  # e.g. 20230525
             if fw[1] != 'MSIL2A' or ts != date_string or gid not in gids:  # only level-2 for selected date and gid
                 continue
-            # print(w)
+            # print(d)
 
             f = key.split('/')[-1]
             dest = 'L2_' + ts + sep + f
@@ -59,8 +62,14 @@ def download_by_gids(gids, date_string):
                             's3://sentinel-products-ca-mirror/' + key,
                             dest])
             if not exists(dest):
+                pass
                 print(cmd)
                 a = os.system(cmd) # uncomment this to do the download.
+            else:
+                if file_size != os.path.getsize(dest):
+                    print("WARNING: wrong size")
+
+    
 
 # get gids from command line
 gids = [] # set(args[1:])
