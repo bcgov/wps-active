@@ -63,10 +63,15 @@ def my_list(c2_d):
     print("row id observed today:", len(row_id))
     print("row id observed today:", row_id)
     # print(bc_gid)
+    bc_row_id = []
     for r in row_id:
-        if r not in bc_gid:
-            pass # print("Warning: ", r)
-
+        if r in bc_gid:
+            bc_row_id += [r]
+    print("bc row id obs. today:", len(bc_row_id))
+    print("bc row id obs. today:", bc_row_id)
+    if len(bc_row_id) != len(list(set(bc_row_id))):
+        print("Multiple obs. for some bc gid")
+    
 
 print("LEVEL 1:")
 my_list(c1_d)
