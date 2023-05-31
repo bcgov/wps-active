@@ -65,7 +65,9 @@ def download_by_gids(gids, date_string):
                 a = os.system(cmd) # uncomment this to do the download.
 
 # get gids from command line
-gids = [] # set(args[1:])
+gids = []
+if len(args) > 2:
+    gids = set(args[2:])
 
 if len(gids) == 0:  # if no gids provided, default to all gids for BC
     from gid import bc
