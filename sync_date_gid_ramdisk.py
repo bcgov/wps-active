@@ -11,6 +11,8 @@ python3 ~/GitHub/s2-fire-mapping/sync_date_gid.py 20230530 10VEM 10VFM
 
 e.g. for NTSSO08:
 python3 ~/GitHub/s2-fire-mapping/sync_date_gid.py 20230530 11VLG 11VLH 11VMH 11VMG
+
+Re-run this script to regenerate the batch file that downloads and processes any frames that aren't already unpacked, spectrally subsetted and resampled in the target folder.
 '''
 import os
 import sys
@@ -68,10 +70,19 @@ def download_by_gids(gids, date_string):
                             's3://sentinel-products-ca-mirror/' + key,
                             f]) # dest])
 
-            product_target_file =  product_target + 'L2_' + ts + sep + f[:-3] + 'bin'
+            product_target_file =  product_target + f[:-3] + 'bin'
+            prod_target_hdr = product_target + f[:-3] + 'hdr'
             prod_file = f[:-3] + 'bin'
+            prod_hdr = f[:-3] + 'hdr'
             if not exists(product_target_file):
-                jobs += [{'zip_filename': f, 'gid': gid, 'date_string': ts, 'download_command': cmd, 'prod_target': product_target_file, 'prod_file': prod_file}]
+                jobs += [{'zip_filename': f,
+                          'gid': gid,
+                          'date_string': ts,
+                          'download_command': cmd,
+                          'prod_target': product_target_file,
+                          'prod_target_hdr': prod_target_hdr,
+                          'prod_file': prod_file,
+                          'prod_hdr': prod_hdr}]
            
     # partition into batches
     batches = {}
@@ -95,12 +106,12 @@ def download_by_gids(gids, date_string):
             bf.write((j['download_command'] + ' &\n').encode())
         bf.write('wait\n'.encode())
         bf.write('s2u2s\n'.encode())        
-
+        bf.write('rm *swir*\n'.encode())
         for j in batches[b]:
             bf.write(('mv -v ' + j['prod_file'] + ' ' + j['prod_target'] + ' &\n').encode())
-
+        for j in batches[b]:
+            bf.write(('mv -v ' + j['prod_hdr'] + ' ' + j['prod_target_hdr'] + ' &\n').encode())
         bf.write('rm -rf /ram/*\n'.encode()) # clear ramdisk
-
         # next batch
 
     bf.close()
