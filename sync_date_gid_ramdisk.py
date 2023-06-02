@@ -21,7 +21,7 @@ import os
 import sys
 import json
 import datetime
-from misc import args, sep, exists, parfor
+from misc import args, sep, exists, parfor, run
 my_path = sep.join(os.path.abspath(__file__).split(sep)[:-1]) + sep
 
 product_target = os.getcwd() + sep # run from the folder you want the products to arrive into
