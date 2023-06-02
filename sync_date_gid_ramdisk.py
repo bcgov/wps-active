@@ -47,8 +47,11 @@ def download_by_gids(gids, date_string):
     print('+w', df)
     open(df, 'wb').write(data.encode())  # record json to file
 
-    jobs = []
-    d = json.loads(data)  # parse json data
+    jobs, d = [], None
+    try:
+        d = json.loads(data)  # parse json data
+    except:
+        err('please confirm aws cli is installed: e.g. sudo apt install awscli')
     data = d['Contents']  # extract the data records, one per dataset
     for d in data:
         key, modified, file_size = d['Key'].strip(), d['LastModified'], d['Size']
@@ -58,7 +61,9 @@ def download_by_gids(gids, date_string):
             fw = f.split('_')
             gid = fw[5][1:]  # e.g. T10UGU
             ts = fw[2].split('T')[0]  # e.g. 20230525
-            if fw[1] != 'MSIL2A' or ts != date_string or gid not in gids:  # only level-2 for selected date and gid
+            if fw[1] != 'MSIL2A' or ts != date_string:
+                continue
+            if gids is not None and gid not in gids:  # only level-2 for selected date and gid
                 continue
             # print(d)
             # f = key.split('/')[-1]
@@ -86,7 +91,7 @@ def download_by_gids(gids, date_string):
            
     # partition into batches
     batches = {}
-    jobs_per_iter = 4
+    jobs_per_iter = 8
     ci, batch_i = 0, -1 
     for j in jobs:
         if ci % jobs_per_iter == 0:
@@ -126,7 +131,9 @@ if len(args) > 2:
 if len(gids) == 0:  # if no gids provided, default to all gids for BC
     from gid import bc
     gids = bc()
-# print(agids)
+else:
+    if 'all' in gids:
+        gids = None
 
 yyyymmdd = args[1]
 if len(yyyymmdd) != 8:
