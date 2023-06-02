@@ -6,14 +6,11 @@ for specified date: yyyymmdd only
 python3 sync_date_gid.py [date: yyyymmdd] e.g.
 python3 sync_date_gid.py 20230525
 
-
 e.g. for NTFS001:
-python3 ~/GitHub/s2-fire-mapping/sync_date_gid.py 20230530 T10VEM T10VFM 
+python3 ~/GitHub/s2-fire-mapping/sync_date_gid.py 20230530 10VEM 10VFM 
 
 e.g. for NTSSO08:
-python3 ~/GitHub/s2-fire-mapping/sync_date_gid.py 20230530 T11VLG T11VLH T11VMH T11VMG
-
-Not sure if the T character in the gid code is required. Should be using a 5 char code?
+python3 ~/GitHub/s2-fire-mapping/sync_date_gid.py 20230530 11VLG 11VLH 11VMH 11VMG
 '''
 import os
 import sys
