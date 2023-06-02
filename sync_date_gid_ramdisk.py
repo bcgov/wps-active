@@ -1,4 +1,7 @@
-''' 20230526 download data for each 5-char "UTM tiling-grid ID":
+'''
+20230603 need looping for this.
+
+ 20230526 download data for each 5-char "UTM tiling-grid ID":
         https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59
 specified, 
 for specified date: yyyymmdd only
