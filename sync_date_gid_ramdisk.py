@@ -111,6 +111,7 @@ def download_by_gids(gids, date_string):
             bf.write(('mv -v ' + j['prod_file'] + ' ' + j['prod_target'] + ' &\n').encode())
         for j in batches[b]:
             bf.write(('mv -v ' + j['prod_hdr'] + ' ' + j['prod_target_hdr'] + ' &\n').encode())
+        bf.write('wait\n'.encode())
         bf.write('rm -rf /ram/*\n'.encode()) # clear ramdisk
         # next batch
 
