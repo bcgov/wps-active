@@ -3,7 +3,7 @@ import os
 import sys
 import math
 import multiprocessing as mp
-args, exists = sys.argv, os.path.exists
+args, exists, sep = sys.argv, os.path.exists, os.path.sep
 
 '''parallel for loop'''
 def parfor(my_function,  # function to run in parallel
