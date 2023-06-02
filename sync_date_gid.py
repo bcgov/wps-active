@@ -47,8 +47,7 @@ def download_by_gids(gids, date_string):
     # print('+w', df)
     open(df, 'wb').write(data.encode())  # record json to file
 
-    latest = {}
-    d = json.loads(data)  # parse json
+    d = json.loads(data)  # parse json data
     data = d['Contents']  # extract the data records, one per dataset
     for d in data:
         key, modified, file_size = d['Key'].strip(), d['LastModified'], d['Size']
