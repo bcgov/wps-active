@@ -122,6 +122,7 @@ def download_by_gids(gids, date_string):
 
     bf.close()
     print("+w batch_job.sh")
+    run('chmod 755 batch_job.sh')
 
 # get gids from command line
 gids = []
