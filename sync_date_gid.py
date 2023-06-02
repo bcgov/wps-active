@@ -1,4 +1,4 @@
-''' 20230526 download data for each 6-char "UTM tiling-grid ID":
+''' 20230526 download data for each 5-char "UTM tiling-grid ID":
         https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59
 specified, 
 for specified date: yyyymmdd only
@@ -55,7 +55,7 @@ def download_by_gids(gids, date_string):
         if w[0] == 'Sentinel-2':
             f = w[-1]
             fw = f.split('_')
-            gid = fw[5]  # e.g. T10UGU
+            gid = fw[5][1:]  # e.g. T10UGU
             ts = fw[2].split('T')[0]  # e.g. 20230525
             if fw[1] != 'MSIL2A' or ts != date_string or gid not in gids:  # only level-2 for selected date and gid
                 continue
