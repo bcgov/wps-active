@@ -14,13 +14,13 @@ data_json = response.read()
 
 # save to file
 ts = time_stamp()
-jfn = ts + '_CWIFS_fires.json'
+jfn = ts + '_CWFIS_fires.json'
 open(jfn, 'wb').write(data_json)
 print('+w', jfn)
 
 # convert to shapefile
-shutil.copyfile(jfn, 'CWIFS_fires.json')
-run('ogr2ogr -f "ESRI Shapefile" CWIFS.shp CWIFS_fires.json')
+shutil.copyfile(jfn, 'CWFIS_fires.json')
+run('ogr2ogr -skipfailures -f "ESRI Shapefile" CWFIS.shp CWFIS_fires.json')
 
 
 # parse json data
