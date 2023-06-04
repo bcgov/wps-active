@@ -29,3 +29,14 @@ def err(m):
 def run(c):
     print(c)
     return os.system(c)
+
+'''yyyymmddhhmmss time stamp'''
+def time_stamp():
+    now = datetime.datetime.now()  # create timestamp
+    [year, month, day, hour, minute, second] = [str(now.year).zfill(4),
+                                                str(now.month).zfill(2),
+                                                str(now.day).zfill(2),
+                                                str(now.hour).zfill(2),
+                                                str(now.minute).zfill(2),
+                                                str(now.second).zfill(2)]
+    ts = ''.join([year, month, day, hour, minute, second])  # time stamp
