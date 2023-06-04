@@ -1,13 +1,18 @@
 '''20230603 query CIFFC active fire locations
-
 '''
 from urllib.request import urlopen
+from misc import time_stamp
 import sys
 import json
 
 url = 'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=public:activefires_current&outputFormat=json'
 response = urlopen(url)
 data_json = json.loads(response.read())
+
+jfn = ts + '_CWIFS_fires.json'
+open(jfn, 'wb').write(data_json.encode())
+print('+w', jfn)
+
 # print(data_json)
 
 select_agency = None
