@@ -70,7 +70,7 @@ def download_by_gids(gids, date_string):
                 continue
             # print(d)
             # f = key.split('/')[-1]
-            dest = 'L2_' + ts + sep + f
+            # dest = 'L2_' + ts + sep + f
             cmd = ' '.join(['aws',
                             's3',
                             'cp',
