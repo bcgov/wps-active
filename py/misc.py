@@ -32,6 +32,7 @@ def run(c):
 
 '''yyyymmddhhmmss time stamp'''
 def time_stamp():
+    import datetime
     now = datetime.datetime.now()  # create timestamp
     [year, month, day, hour, minute, second] = [str(now.year).zfill(4),
                                                 str(now.month).zfill(2),
