@@ -126,6 +126,7 @@ def download_by_gids(gids, date_string):
     bf.close()
     print("+w batch_job.sh")
     run('chmod 755 batch_job.sh')
+    run('./batch_job.sh')
 
 # get gids from command line
 gids = []
@@ -143,6 +144,9 @@ yyyymmdd = args[1]
 if len(yyyymmdd) != 8:
     print('Error: expected date in format yyyymmdd')
     sys.exit(1)
+
 #  make it go
-download_by_gids(gids, yyyymmdd)
+while(True):
+    download_by_gids(gids, yyyymmdd)
+    sleep(300)
 print('done')
