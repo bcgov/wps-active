@@ -20,6 +20,7 @@ Re-run this script to regenerate the batch file that downloads and processes any
 import os
 import sys
 import json
+import time
 import datetime
 from misc import args, sep, exists, parfor, run
 my_path = sep.join(os.path.abspath(__file__).split(sep)[:-1]) + sep
@@ -148,5 +149,6 @@ if len(yyyymmdd) != 8:
 #  make it go
 while(True):
     download_by_gids(gids, yyyymmdd)
-    sleep(300)
+    print('waiting 5 min..')
+    time.sleep(300)
 print('done')
