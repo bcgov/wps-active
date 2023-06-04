@@ -1,6 +1,8 @@
 # Sentinel-2 active fire mapping
 Currently this repo only reflects data download 
-
+```
+python3 sync_date_gid_ramdisk.py 20230603 all # sync and process all mirrored dates for date e.g. Jun 3rd, 2023
+```
 ## Functions
 ### For specific grid-id, pull most recent data only
 ```
@@ -10,18 +12,18 @@ to download only the most-recent data for a list of ["grid id"](https://eatlas.o
 
 Currently this downloads the latest data for BC:
 ```
-python3 sync_latest_gid.py
+python3 py/sync_latest_gid.py
 ```
 
 ### For jurisdiction-specific grid-id, pull data for specific date only
 ```
-sync_date_gid.py 20230525 # example: pull data over bc for May 25, 2023
+python3 py/sync_date_gid.py 20230525 # example: pull data over bc for May 25, 2023
 ```
 
 ## Deprecated
 ### The firehose: Pull all of today's captures
 ```
-python3 sync_today_all.py # [yyyymmdd]: optional arg: sync all data from yyyymmdd
+python3 py/sync_today_all.py # [yyyymmdd]: optional arg: sync all data from yyyymmdd
 ```
 # Notes
 Information in this repo restricted to the following teams:
