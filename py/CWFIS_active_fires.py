@@ -1,9 +1,10 @@
 '''20230603 query CIFFC active fire locations
 '''
 from urllib.request import urlopen
-from misc import time_stamp
-import sys
+from misc import time_stamp, run
+import shutil
 import json
+import sys
 
 # read json data
 url = 'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=public:activefires_current&outputFormat=json'
@@ -13,8 +14,13 @@ data_json = response.read()
 # save to file
 ts = time_stamp()
 jfn = ts + '_CWIFS_fires.json'
-open(jfn, 'wb').write(data_json.encode())
+open(jfn, 'wb').write(data_json)
 print('+w', jfn)
+
+# convert to shapefile
+shutil.copyfile(jfn, 'CWIFS_fires.json')
+run('ogr2ogr -f "ESRI Shapefile" CWIFS.shp CWIFS_fires.json')
+
 
 # parse json data
 data_json = json.loads(data_json)
