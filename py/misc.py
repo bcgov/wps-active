@@ -41,3 +41,4 @@ def time_stamp():
                                                 str(now.minute).zfill(2),
                                                 str(now.second).zfill(2)]
     ts = ''.join([year, month, day, hour, minute, second])  # time stamp
+    return ts
