@@ -1,5 +1,6 @@
 '''20230603 query CIFFC active fire locations
-'''
+
+NB need to clip Sentinel-2 footprint for Canada'''
 from urllib.request import urlopen
 from misc import time_stamp, run
 import shutil
