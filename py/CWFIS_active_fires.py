@@ -5,14 +5,19 @@ from misc import time_stamp
 import sys
 import json
 
+# read json data
 url = 'https://cwfis.cfs.nrcan.gc.ca/geoserver/public/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=public:activefires_current&outputFormat=json'
 response = urlopen(url)
-data_json = json.loads(response.read())
+data_json = response.read()
 
+# save to file
+ts = time_stamp()
 jfn = ts + '_CWIFS_fires.json'
 open(jfn, 'wb').write(data_json.encode())
 print('+w', jfn)
 
+# parse json data
+data_json = json.loads(data_json)
 # print(data_json)
 
 select_agency = None
