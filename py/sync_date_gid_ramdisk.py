@@ -22,6 +22,7 @@ import sys
 import json
 import time
 import datetime
+import multiprocessing as mp
 from misc import args, sep, exists, parfor, run
 my_path = sep.join(os.path.abspath(__file__).split(sep)[:-1]) + sep
 
@@ -95,7 +96,7 @@ def download_by_gids(gids, date_string):
            
     # partition into batches
     batches = {}
-    jobs_per_iter = 8
+    jobs_per_iter = mp.cpu_count()
     ci, batch_i = 0, -1 
     for j in jobs:
         if ci % jobs_per_iter == 0:
