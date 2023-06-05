@@ -42,3 +42,22 @@ def time_stamp():
                                                 str(now.second).zfill(2)]
     ts = ''.join([year, month, day, hour, minute, second])  # time stamp
     return ts
+
+
+'''transform a shapefile to the desired crs in EPSG format'''
+def shapefile_to_EPSG(src_f, dst_f, dst_ESPG=3347): # or 3005 bc albers
+    try:
+        if src_f[-4:] != '.shp':
+            err("shapefile input req'd")
+    except Exception:
+        err("please check input file")
+
+    if not exist(src_f):
+        err("could not find input file: " + src_f)
+
+    run(' '.join['ogr2ogr',
+                 '-t_srs',
+                 'EPSG:' + str(dst_EPSG),
+                 dst_f,
+                 fn,
+                 "-lco ENCODING=UTF-8"]);
