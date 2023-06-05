@@ -45,7 +45,16 @@ def time_stamp():
 
 
 '''transform a shapefile to the desired crs in EPSG format'''
-def shapefile_to_EPSG(src_f, dst_f, dst_ESPG=3347): # or 3005 bc albers
+def shapefile_to_EPSG(src_f, dst_f, dst_EPSG=3347): # or 3005 bc albers
+    t_epsg = dst_EPSG
+
+    # try to read EPSG from file:
+    if os.path.exists(dst_EPSG) and os.path.isfile(dst_EPSG):
+        try:
+            lines = [x.strip() for x in os.popen('gdalsrsinfo ' + dst_EPSG).read().strip().split('\n')]
+            t_epsg = int(lines[-1].split(',')[-1].strip(']').strip(']'))
+        except:
+            err('failed to read EPSG from file')
     try:
         if src_f[-4:] != '.shp':
             err("shapefile input req'd")
@@ -57,7 +66,7 @@ def shapefile_to_EPSG(src_f, dst_f, dst_ESPG=3347): # or 3005 bc albers
 
     run(' '.join['ogr2ogr',
                  '-t_srs',
-                 'EPSG:' + str(dst_EPSG),
+                 'EPSG:' + str(t_epsg),
                  dst_f,
                  fn,
                  "-lco ENCODING=UTF-8"]);
