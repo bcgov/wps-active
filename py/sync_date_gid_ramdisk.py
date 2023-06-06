@@ -1,22 +1,23 @@
-'''RUN FROM SSD..
+'''Instructions: run from path on SSD,
+     with "/ram" device enabled using   
+        python3 py/ramdisk.py 
 
-20230603 need looping for this.
-
- 20230526 download data for each 5-char "UTM tiling-grid ID":
+20230605 need to revise away from the batch/cycling op
+20230604 added looping
+20230526 download data for each 5-char "UTM tiling-grid ID":
         https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59
 specified, 
 for specified date: yyyymmdd only
 
-python3 sync_date_gid.py [date: yyyymmdd] e.g.
-python3 sync_date_gid.py 20230525
+python3 sync_date_gid_ramdisk.py [date: yyyymmdd] e.g.
+python3 sync_date_gid_ramdisk.py 20230525  # download all data over BC for 20230525
+python3 sync_date_gid_ramdisk.py 20230525 all # download all data from national mirror 
 
 e.g. for NTFS001:
-python3 ~/GitHub/s2-fire-mapping/sync_date_gid.py 20230530 10VEM 10VFM 
+    python3 ~/GitHub/s2-fire-mapping/sync_date_gid.py 20230530 10VEM 10VFM 
 
 e.g. for NTSSO08:
-python3 ~/GitHub/s2-fire-mapping/sync_date_gid.py 20230530 11VLG 11VLH 11VMH 11VMG
-
-Re-run this script to regenerate the batch file that downloads and processes any frames that aren't already unpacked, spectrally subsetted and resampled in the target folder.
+    python3 ~/GitHub/s2-fire-mapping/sync_date_gid.py 20230530 11VLG 11VLH 11VMH 11VMG
 '''
 import os
 import sys
@@ -26,8 +27,8 @@ import datetime
 import multiprocessing as mp
 from misc import args, sep, exists, parfor, run
 my_path = sep.join(os.path.abspath(__file__).split(sep)[:-1]) + sep
-
 product_target = os.getcwd() + sep # run from the folder you want the products to arrive into
+
 
 def download_by_gids(gids, date_string):
     now = datetime.datetime.now()  # create timestamp yyyymmddhhmmss
@@ -71,15 +72,12 @@ def download_by_gids(gids, date_string):
                 continue
             if gids is not None and gid not in gids:  # only level-2 for selected date and gid
                 continue
-            # print(d)
-            # f = key.split('/')[-1]
-            # dest = 'L2_' + ts + sep + f
             cmd = ' '.join(['aws',
                             's3',
                             'cp',
                             '--no-sign-request',
                             's3://sentinel-products-ca-mirror/' + key,
-                            f]) # dest])
+                            f])
 
             product_target_file =  product_target + f[:-3] + 'bin'
             prod_target_hdr = product_target + f[:-3] + 'hdr'
@@ -109,24 +107,22 @@ def download_by_gids(gids, date_string):
         batches[batch_i] += [j]
         ci += 1
     
-    #print("jobs_per_iter", jobs_per_iter)
-    #print("batches")
-    #for b in batches:
-    #    print(b, batches[b])
-    #sys.exit(1)
     bf = open('batch_job.sh', 'wb')
     for b in batches:
         bf.write(('# batch ' + str(b) + '\n').encode())
         bf.write('cd /ram\n'.encode())
+        
+        # download phase
         for j in batches[b]:
             bf.write((j['download_command'] + ' &\n').encode())
         bf.write('wait\n'.encode())
 
+        # extract phase
         for j in batches[b]:
             bf.write(('sentinel2_extract_swir.py ' +  j['zip_filename'] + ' &\n').encode())
         bf.write('wait\n'.encode())
-        # bf.write('s2u2s\n'.encode())        
-        # bf.write('rm *swir*\n'.encode())
+
+        # scatter phase
         for j in batches[b]:
             bf.write(('mv -v ' + j['prod_file'] + ' ' + j['prod_target'] + ' &\n').encode())
         for j in batches[b]:
@@ -140,8 +136,7 @@ def download_by_gids(gids, date_string):
     run('chmod 755 batch_job.sh')
     run('./batch_job.sh')
 
-# get gids from command line
-gids = []
+gids = []  # get gids from command line
 if len(args) > 2:
     gids = set(args[2:])
 
@@ -157,8 +152,7 @@ if len(yyyymmdd) != 8:
     print('Error: expected date in format yyyymmdd')
     sys.exit(1)
 
-#  make it go
-while(True):
+while(True):  # make it go. Need to add termination when completed.
     download_by_gids(gids, yyyymmdd)
     print('waiting 5 min..')
     time.sleep(300)
