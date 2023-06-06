@@ -95,7 +95,7 @@ def download_by_gids(gids, date_string):
            
     # partition into batches
     batches = {}
-    jobs_per_iter = int(mp.cpu_count() / 2)
+    jobs_per_iter = int(mp.cpu_count()) 
     ci, batch_i = 0, -1 
     for j in jobs:
         if ci % jobs_per_iter == 0:
