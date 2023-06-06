@@ -19,16 +19,15 @@ e.g. for NTFS001:
 e.g. for NTSSO08:
     python3 ~/GitHub/s2-fire-mapping/sync_date_gid.py 20230530 11VLG 11VLH 11VMH 11VMG
 '''
-import os
-import sys
-import json
-import time
-import datetime
-import multiprocessing as mp
 from misc import args, sep, exists, parfor, run, time_stamp
+import multiprocessing as mp
+import datetime
+import time
+import json
+import sys
+import os
 my_path = sep.join(os.path.abspath(__file__).split(sep)[:-1]) + sep
-product_target = os.getcwd() + sep # run from the folder you want the products to arrive into
-
+product_target = os.getcwd() + sep # put ARD products into present folder
 
 def download_by_gids(gids, date_string):
     ts = time_stamp()
@@ -51,6 +50,7 @@ def download_by_gids(gids, date_string):
     except:
         err('please confirm aws cli: e.g. sudo apt install awscli')
     data = d['Contents']  # extract the data records, one per dataset
+    
     for d in data:
         key, modified, file_size = d['Key'].strip(), d['LastModified'], d['Size']
         w = [x.strip() for x in key.split('/')]
@@ -59,10 +59,11 @@ def download_by_gids(gids, date_string):
             fw = f.split('_')
             gid = fw[5][1:]  # e.g. T10UGU
             ts = fw[2].split('T')[0]  # e.g. 20230525
-            if fw[1] != 'MSIL2A' or ts != date_string:
+            if fw[1] != 'MSIL2A' or ts != date_string:  # wrong date or product
                 continue
             if gids is not None and gid not in gids:  # only level-2 for selected date and gid
                 continue
+
             cmd = ' '.join(['aws',
                             's3',
                             'cp',
@@ -117,7 +118,7 @@ def download_by_gids(gids, date_string):
         for j in batches[b]:
             bf.write(('mv -v ' + j['prod_hdr'] + ' ' + j['prod_target_hdr'] + ' &\n').encode())
         bf.write('wait\n'.encode())
-        bf.write('rm -rf /ram/*\n'.encode()) # clear ramdisk
+        bf.write('rm -rf /ram/*.bin /ram/*.hdr\n'.encode()) # clear ramdisk
         # next batch
 
     bf.close()
