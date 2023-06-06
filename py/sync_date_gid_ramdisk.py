@@ -1,4 +1,5 @@
-'''
+'''RUN FROM SSD..
+
 20230603 need looping for this.
 
  20230526 download data for each 5-char "UTM tiling-grid ID":
@@ -96,7 +97,7 @@ def download_by_gids(gids, date_string):
            
     # partition into batches
     batches = {}
-    jobs_per_iter = mp.cpu_count()
+    jobs_per_iter = int(mp.cpu_count() / 2)
     ci, batch_i = 0, -1 
     for j in jobs:
         if ci % jobs_per_iter == 0:
@@ -108,6 +109,11 @@ def download_by_gids(gids, date_string):
         batches[batch_i] += [j]
         ci += 1
     
+    #print("jobs_per_iter", jobs_per_iter)
+    #print("batches")
+    #for b in batches:
+    #    print(b, batches[b])
+    #sys.exit(1)
     bf = open('batch_job.sh', 'wb')
     for b in batches:
         bf.write(('# batch ' + str(b) + '\n').encode())
@@ -115,8 +121,12 @@ def download_by_gids(gids, date_string):
         for j in batches[b]:
             bf.write((j['download_command'] + ' &\n').encode())
         bf.write('wait\n'.encode())
-        bf.write('s2u2s\n'.encode())        
-        bf.write('rm *swir*\n'.encode())
+
+        for j in batches[b]:
+            bf.write(('sentinel2_extract_swir.py ' +  j['zip_filename'] + ' &\n').encode())
+        bf.write('wait\n'.encode())
+        # bf.write('s2u2s\n'.encode())        
+        # bf.write('rm *swir*\n'.encode())
         for j in batches[b]:
             bf.write(('mv -v ' + j['prod_file'] + ' ' + j['prod_target'] + ' &\n').encode())
         for j in batches[b]:
