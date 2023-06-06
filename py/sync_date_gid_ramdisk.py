@@ -19,7 +19,7 @@ e.g. for NTFS001:
 e.g. for NTSSO08:
     python3 ~/GitHub/s2-fire-mapping/sync_date_gid.py 20230530 11VLG 11VLH 11VMH 11VMG
 '''
-from misc import args, sep, exists, parfor, run, time_stamp
+from misc import args, sep, exists, parfor, run, time_stamp, err
 import multiprocessing as mp
 import datetime
 import time
@@ -139,8 +139,7 @@ else:
 
 yyyymmdd = args[1]
 if len(yyyymmdd) != 8:
-    print('Error: expected date in format yyyymmdd')
-    sys.exit(1)
+    err('expected date in format yyyymmdd')
 
 while(True):  # make it go. Need to add termination when completed.
     download_by_gids(gids, yyyymmdd)
