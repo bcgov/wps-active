@@ -25,40 +25,31 @@ import json
 import time
 import datetime
 import multiprocessing as mp
-from misc import args, sep, exists, parfor, run
+from misc import args, sep, exists, parfor, run, time_stamp
 my_path = sep.join(os.path.abspath(__file__).split(sep)[:-1]) + sep
 product_target = os.getcwd() + sep # run from the folder you want the products to arrive into
 
 
 def download_by_gids(gids, date_string):
-    now = datetime.datetime.now()  # create timestamp yyyymmddhhmmss
-    [year, month, day, hour, minute, second] = [str(now.year).zfill(4),
-                                                str(now.month).zfill(2),
-                                                str(now.day).zfill(2),
-                                                str(now.hour).zfill(2),
-                                                str(now.minute).zfill(2),
-                                                str(now.second).zfill(2)]
-    ts = ''.join([year, month, day, hour, minute, second])
-
+    ts = time_stamp()
     cmd = ' '.join(['aws',  # read data from aws
                     's3api',
                     'list-objects',
                     '--no-sign-request',
                     '--bucket sentinel-products-ca-mirror'])
-    # print(cmd)
+    print(cmd)
     data = os.popen(cmd).read()
 
     if not exists(my_path + 'listing'):  # json backup for analysis
         os.mkdir(my_path + 'listing')
     df = my_path + 'listing' + sep + ts + '_objects.txt'  # file to write
-    print('+w', df)
     open(df, 'wb').write(data.encode())  # record json to file
 
     jobs, d = [], None
     try:
         d = json.loads(data)  # parse json data
     except:
-        err('please confirm aws cli is installed: e.g. sudo apt install awscli')
+        err('please confirm aws cli: e.g. sudo apt install awscli')
     data = d['Contents']  # extract the data records, one per dataset
     for d in data:
         key, modified, file_size = d['Key'].strip(), d['LastModified'], d['Size']
@@ -78,7 +69,7 @@ def download_by_gids(gids, date_string):
                             '--no-sign-request',
                             's3://sentinel-products-ca-mirror/' + key,
                             f])
-
+            
             product_target_file =  product_target + f[:-3] + 'bin'
             prod_target_hdr = product_target + f[:-3] + 'hdr'
             prod_file = f[:-3] + 'bin'
@@ -100,10 +91,8 @@ def download_by_gids(gids, date_string):
     for j in jobs:
         if ci % jobs_per_iter == 0:
             batch_i += 1        
-
         if batch_i not in batches:
             batches[batch_i] = []
-
         batches[batch_i] += [j]
         ci += 1
     
