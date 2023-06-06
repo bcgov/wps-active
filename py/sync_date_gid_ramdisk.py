@@ -84,7 +84,19 @@ def download_by_gids(gids, date_string):
                           'prod_target_hdr': prod_target_hdr,
                           'prod_file': prod_file,
                           'prod_hdr': prod_hdr}]
-           
+ 
+    def run_job(j):
+        os.chdir('/ram/')
+        run(j['download_command'])
+        run('sentinel2_extract_swir.py ' + j['zip_filename'])
+        run('mv -v ' + j['prod_file'] + ' ' + j['prod_target'])
+        run('mv -v ' + j['prod_hdr'] + ' ' + j['prod_target_hdr'])
+        run('rm -v ' + j['zip_filename'])
+        # run('rm ' + j['prod_file'])
+        # run('rm ' + j['prod_hdr'])
+
+    parfor(run_job, jobs, int(mp.cpu_count()))  
+    '''
     # partition into batches
     batches = {}
     jobs_per_iter = int(mp.cpu_count()) 
@@ -125,7 +137,7 @@ def download_by_gids(gids, date_string):
     print("+w batch_job.sh")
     run('chmod 755 batch_job.sh')
     run('./batch_job.sh')
-
+    '''
 gids = []  # get gids from command line
 if len(args) > 2:
     gids = set(args[2:])
