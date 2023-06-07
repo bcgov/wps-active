@@ -45,6 +45,7 @@ for f in data_json['features']:
         agency[ag] = 0
     agency[ag] += 1
     if ag == select_agency or select_agency is None:
-        s_hub = 'https://apps.sentinel-hub.com/sentinel-playground/?source=S2L2A&lat=' + str(properties['lat']) + '&lng=' + str(properties['lon'])+ '&zoom=12&preset=CUSTOM&layers=B12,B11,B09&maxcc=20&gain=1.0&gamma=1.0&atmFilter=&showDates=false&evalscript=cmV0dXJuIFtCMTIqMi41LEIxMSoyLjUsQjA5KjIuNV0%3D'
+        s_hub = 'https://apps.sentinel-hub.com/sentinel-playground/?source=S2L2A&lat=' + str(properties['lat']) + '&lng=' + str(properties['lon']) + \
+                    '&zoom=12&preset=CUSTOM&layers=B12,B11,B09&maxcc=20&gain=1.0&gamma=1.0&atmFilter=&showDates=false&evalscript=cmV0dXJuIFtCMTIqMi41LEIxMSoyLjUsQjA5KjIuNV0%3D'
         print(properties, s_hub)
 print(agency)
