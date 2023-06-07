@@ -75,6 +75,7 @@ def shapefile_intersect(s1_path, s2_path):
                 if my_fire not in my_tiles:
                     my_tiles[my_fire] = set()
                 my_tiles[my_fire].add(my_tile)
+                print(my_fire, my_tile)
                 print("-------------------")
                 #print_feature(feature2)
                 #print(geometry1)
