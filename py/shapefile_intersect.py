@@ -68,15 +68,15 @@ def shapefile_intersect(s1_path, s2_path):
             # Check if the two geometries intersect
             # print_feature(feature2)
             if geometry1.Intersects(geometry2):
-                print("Features intersect!")
+                # print("Features intersect!")
                 #print_feature(feature1)
                 my_fire = feature1.GetField("firename")
                 my_tile = feature2.GetField("Name")
                 if my_fire not in my_tiles:
                     my_tiles[my_fire] = set()
                 my_tiles[my_fire].add(my_tile)
-                print(my_fire, my_tile)
-                print("-------------------")
+                # print(my_fire, my_tile)
+                # print("-------------------")
                 #print_feature(feature2)
                 #print(geometry1)
                 #print(geometry2)
@@ -86,6 +86,9 @@ def shapefile_intersect(s1_path, s2_path):
 
 shapefile_intersect('CWFIS_EPSG3347.shp', #'CWFIS.shp',
                     's2_gid/s2_gid_EPSG3347.shp') #'s2_gid/s2_gid.shp')
+
+for fire in my_tiles:
+    print(fire, my_tiles[fire])
 
 '''
 
