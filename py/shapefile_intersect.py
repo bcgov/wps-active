@@ -90,7 +90,8 @@ shapefile_intersect('CWFIS_EPSG3347.shp', #'CWFIS.shp',
                     's2_gid/s2_gid_EPSG3347.shp') #'s2_gid/s2_gid.shp')
 
 for fire in my_tiles:
-    s_hub = 'https://apps.sentinel-hub.com/sentinel-playground/?source=S2L2A&lat=' + str(my_lat[fire]) + '&lng=' + str(my_lon[fire])+ '&zoom=12&preset=CUSTOM&layers=B12,B11,B09&maxcc=20&gain=1.0&gamma=1.0&atmFilter=&showDates=false&evalscript=cmV0dXJuIFtCMTIqMi41LEIxMSoyLjUsQjA5KjIuNV0%3D'
+    s_hub = 'https://apps.sentinel-hub.com/sentinel-playground/?source=S2L2A&lat=' + str(my_lat[fire]) + '&lng=' + str(my_lon[fire]) +\
+                '&zoom=12&preset=CUSTOM&layers=B12,B11,B09&maxcc=100&gain=1.0&gamma=1.0&atmFilter=&showDates=false&evalscript=cmV0dXJuIFtCMTIqMi41LEIxMSoyLjUsQjA5KjIuNV0%3D'
     print(fire, my_tiles[fire], my_lat[fire], my_lon[fire], s_hub)
 
 
