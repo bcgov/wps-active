@@ -28,7 +28,7 @@ def print_feature(feature):
         print(f"{field_name}: {field_value}")
 
 # intersect one shapefile with another
-my_tiles = {}
+my_tiles, my_lat, my_lon = {}, {}, {}
 def shapefile_intersect(s1_path, s2_path):
     # Open the first shapefile
     print('r', s1_path)
@@ -69,12 +69,14 @@ def shapefile_intersect(s1_path, s2_path):
             # print_feature(feature2)
             if geometry1.Intersects(geometry2):
                 # print("Features intersect!")
-                #print_feature(feature1)
+                # print_feature(feature1)
                 my_fire = feature1.GetField("firename")
                 my_tile = feature2.GetField("Name")
                 if my_fire not in my_tiles:
                     my_tiles[my_fire] = set()
                 my_tiles[my_fire].add(my_tile)
+                my_lat[my_fire] = feature1.GetField("lat")
+                my_lon[my_fire] = feature1.GetField("lon")
                 # print(my_fire, my_tile)
                 # print("-------------------")
                 #print_feature(feature2)
@@ -88,7 +90,10 @@ shapefile_intersect('CWFIS_EPSG3347.shp', #'CWFIS.shp',
                     's2_gid/s2_gid_EPSG3347.shp') #'s2_gid/s2_gid.shp')
 
 for fire in my_tiles:
-    print(fire, my_tiles[fire])
+    s_hub = 'https://apps.sentinel-hub.com/sentinel-playground/?source=S2L2A&lat=' + str(my_lat[fire]) + '&lng=' + str(my_lon[fire])+ '&zoom=12&preset=CUSTOM&layers=B12,B11,B09&maxcc=20&gain=1.0&gamma=1.0&atmFilter=&showDates=false&evalscript=cmV0dXJuIFtCMTIqMi41LEIxMSoyLjUsQjA5KjIuNV0%3D'
+    print(fire, my_tiles[fire], my_lat[fire], my_lon[fire], s_hub)
+
+
 
 '''
 
