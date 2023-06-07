@@ -145,9 +145,11 @@ if len(args) > 2:
 if len(gids) == 0:  # if no gids provided, default to all gids for BC
     from gid import bc
     gids = bc()
+    print('pulling BC data..')
 else:
     if 'all' in gids:
         gids = None
+        print('pulling Canada data..')
 
 yyyymmdd = args[1]
 if len(yyyymmdd) != 8:
