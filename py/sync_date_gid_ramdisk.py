@@ -96,48 +96,7 @@ def download_by_gids(gids, date_string):
         # run('rm ' + j['prod_hdr'])
 
     parfor(run_job, jobs, int(mp.cpu_count()))  
-    '''
-    # partition into batches
-    batches = {}
-    jobs_per_iter = int(mp.cpu_count()) 
-    ci, batch_i = 0, -1 
-    for j in jobs:
-        if ci % jobs_per_iter == 0:
-            batch_i += 1        
-        if batch_i not in batches:
-            batches[batch_i] = []
-        batches[batch_i] += [j]
-        ci += 1
-    
-    bf = open('batch_job.sh', 'wb')
-    for b in batches:
-        bf.write(('# batch ' + str(b) + '\n').encode())
-        bf.write('cd /ram\n'.encode())
-        
-        # download phase
-        for j in batches[b]:
-            bf.write((j['download_command'] + ' &\n').encode())
-        bf.write('wait\n'.encode())
 
-        # extract phase
-        for j in batches[b]:
-            bf.write(('sentinel2_extract_swir.py ' +  j['zip_filename'] + ' &\n').encode())
-        bf.write('wait\n'.encode())
-
-        # scatter phase
-        for j in batches[b]:
-            bf.write(('mv -v ' + j['prod_file'] + ' ' + j['prod_target'] + ' &\n').encode())
-        for j in batches[b]:
-            bf.write(('mv -v ' + j['prod_hdr'] + ' ' + j['prod_target_hdr'] + ' &\n').encode())
-        bf.write('wait\n'.encode())
-        bf.write('rm -rf /ram/*.bin /ram/*.hdr\n'.encode()) # clear ramdisk
-        # next batch
-
-    bf.close()
-    print("+w batch_job.sh")
-    run('chmod 755 batch_job.sh')
-    run('./batch_job.sh')
-    '''
 gids = []  # get gids from command line
 if len(args) > 2:
     gids = set(args[2:])
