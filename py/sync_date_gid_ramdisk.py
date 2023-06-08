@@ -116,6 +116,6 @@ if len(yyyymmdd) != 8:
 
 while(True):  # make it go. Need to add termination when completed.
     download_by_gids(gids, yyyymmdd)
-    print('waiting 5 min..')
-    time.sleep(300)
+    print('waiting 1 min..')
+    time.sleep(60)
 print('done')
