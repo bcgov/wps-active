@@ -1,5 +1,4 @@
 '''20230604 CWFIS version. Use to intersect shapefile of point locations, with tile-index file produced by 
-
 20230530 intersect one shapefile with another. NB probably need to adjust which field is reported on.
 
 adapted from:  bcws_select_tiles
@@ -15,6 +14,12 @@ import os
 rd = 'reproject'
 if not exists(rd):
     os.mkdir(rd)
+
+shapefile_1 = 'CWFIS_EPSG3347.shp'
+shapefile_2 = 's2_gid/s2_gid_EPSG3347.shp'
+
+if len(args) < 3 or not exists(shapefile_1) or not exists(shapefile_2):
+    err("shapefile_intersect.py [first shapefile] [second shapefile: S2 grid]")
 
 # shapefile_reproject.py [input shapefile] [shapefile or raster to get CRS from] [output shapefile]
 
@@ -86,8 +91,8 @@ def shapefile_intersect(s1_path, s2_path):
     s1_dataSource = None
     s2_dataSource = None
 
-shapefile_intersect('CWFIS_EPSG3347.shp', #'CWFIS.shp',
-                    's2_gid/s2_gid_EPSG3347.shp') #'s2_gid/s2_gid.shp')
+shapefile_intersect(shapefile_1, #'CWFIS_EPSG3347.shp', #'CWFIS.shp',
+                    shapefile_2) #'s2_gid/s2_gid_EPSG3347.shp') #'s2_gid/s2_gid.shp')
 
 for fire in my_tiles:
     s_hub = 'https://apps.sentinel-hub.com/sentinel-playground/?source=S2L2A&lat=' + str(my_lat[fire]) + '&lng=' + str(my_lon[fire]) +\
