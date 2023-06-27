@@ -20,8 +20,9 @@ if not exists(rd):
 
 shapefile_1 = 'CWFIS_EPSG3347.shp'
 shapefile_2 = 's2_gid/s2_gid_EPSG3347.shp'
+print(args)
 
-if len(args) < 3 or not exists(shapefile_1) or not exists(shapefile_2):
+if len(args) < 4 and (not exists(shapefile_1) or not exists(shapefile_2)):
     err("shapefile_intersect.py [first shapefile] [second shapefile: S2 grid]")
 else:
     shapefile_1, shapefile_2 = args[1], args[2]
