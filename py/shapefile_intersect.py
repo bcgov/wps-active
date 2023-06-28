@@ -22,7 +22,7 @@ shapefile_1 = 'CWFIS_EPSG3347.shp'
 shapefile_2 = 's2_gid/s2_gid_EPSG3347.shp'
 print(args)
 
-if len(args) < 4 and (not exists(shapefile_1) or not exists(shapefile_2)):
+if len(args) < 3:
     err("shapefile_intersect.py [first shapefile] [second shapefile: S2 grid]")
 else:
     shapefile_1, shapefile_2 = args[1], args[2]
@@ -80,8 +80,14 @@ def shapefile_intersect(s1_path, s2_path):
             # print_feature(feature2)
             if geometry1.Intersects(geometry2):
                 # print("Features intersect!")
-                # print_feature(feature1)
-                my_fire = feature1.GetField("firename")
+                print_feature(feature1)
+                my_fire = None
+                try:
+                    my_fire = feature1.GetField("firename")
+                except:
+                    my_fields = [feature1.GetFieldDefn(i).GetName() for i in range(feature1.GetFieldCount())]
+                    my_fire = feature1.GetField(my_fields[0])
+                    pass
                 my_tile = feature2.GetField("Name")
                 if my_fire not in my_tiles:
                     my_tiles[my_fire] = set()
