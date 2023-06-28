@@ -80,20 +80,31 @@ def shapefile_intersect(s1_path, s2_path):
             # print_feature(feature2)
             if geometry1.Intersects(geometry2):
                 # print("Features intersect!")
+                # print("feature1", feature1)
                 print_feature(feature1)
+                # print(dir(feature1))
                 my_fire = None
                 try:
                     my_fire = feature1.GetField("firename")
                 except:
-                    my_fields = [feature1.GetFieldDefn(i).GetName() for i in range(feature1.GetFieldCount())]
+                    my_fields = [feature1.GetFieldDefnRef(i).GetName() for i in range(feature1.GetFieldCount())]
+                    # print("my_fields", my_fields)
                     my_fire = feature1.GetField(my_fields[0])
                     pass
                 my_tile = feature2.GetField("Name")
                 if my_fire not in my_tiles:
                     my_tiles[my_fire] = set()
                 my_tiles[my_fire].add(my_tile)
-                my_lat[my_fire] = feature1.GetField("lat")
-                my_lon[my_fire] = feature1.GetField("lon")
+                
+                try:
+                    my_lat[my_fire] = feature1.GetField("lat")
+                except:
+                    pass
+
+                try:
+                    my_lon[my_fire] = feature1.GetField("lon")
+                except:
+                    pass
                 # print(my_fire, my_tile)
                 # print("-------------------")
                 #print_feature(feature2)
@@ -107,9 +118,13 @@ shapefile_intersect(shapefile_1, #'CWFIS_EPSG3347.shp', #'CWFIS.shp',
                     shapefile_2) #'s2_gid/s2_gid_EPSG3347.shp') #'s2_gid/s2_gid.shp')
 
 for fire in my_tiles:
-    s_hub = 'https://apps.sentinel-hub.com/sentinel-playground/?source=S2L2A&lat=' + str(my_lat[fire]) + '&lng=' + str(my_lon[fire]) +\
+    lat = str(my_lat[fire] if fire in my_lat else None)
+    lon = str(my_lon[fire] if fire in my_lon else None)
+    s_hub = 'https://apps.sentinel-hub.com/sentinel-playground/?source=S2L2A&lat=' + \
+                lat + '&lng=' + \
+                lon +\
                 '&zoom=12&preset=CUSTOM&layers=B12,B11,B09&maxcc=100&gain=1.0&gamma=1.0&atmFilter=&showDates=false&evalscript=cmV0dXJuIFtCMTIqMi41LEIxMSoyLjUsQjA5KjIuNV0%3D'
-    print(fire, my_tiles[fire], my_lat[fire], my_lon[fire], s_hub)
+    print(fire, my_tiles[fire], lat, lon, s_hub)
 
 
 
