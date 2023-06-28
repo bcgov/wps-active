@@ -105,7 +105,7 @@ def shapefile_intersect(s1_path, s2_path):
                     my_lon[my_fire] = feature1.GetField("lon")
                 except:
                     pass
-                # print(my_fire, my_tile)
+                print(my_fire, my_tile)
                 # print("-------------------")
                 #print_feature(feature2)
                 #print(geometry1)
@@ -125,6 +125,7 @@ for fire in my_tiles:
                 lon +\
                 '&zoom=12&preset=CUSTOM&layers=B12,B11,B09&maxcc=100&gain=1.0&gamma=1.0&atmFilter=&showDates=false&evalscript=cmV0dXJuIFtCMTIqMi41LEIxMSoyLjUsQjA5KjIuNV0%3D'
     print(fire, my_tiles[fire], lat, lon, s_hub)
+    print(' '.join(my_tiles[fire]))
 
 
 
