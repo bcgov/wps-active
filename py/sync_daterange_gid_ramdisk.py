@@ -37,7 +37,7 @@ import os
 my_path = sep.join(os.path.abspath(__file__).split(sep)[:-1]) + sep
 product_target = os.getcwd() + sep # put ARD products into present folder
 
-def download_by_gids(gids, date_string):
+def download_by_gids(gids, date_range):
     ts = time_stamp()
     cmd = ' '.join(['aws',  # read data from aws
                     's3api',
@@ -67,7 +67,7 @@ def download_by_gids(gids, date_string):
             fw = f.split('_')
             gid = fw[5][1:]  # e.g. T10UGU
             ts = fw[2].split('T')[0]  # e.g. 20230525
-            if fw[1] != data_type or ts != date_string:  # wrong date or product
+            if fw[1] != data_type or ts not in date_range:  # wrong product or outside date range
                 continue
             if gids is not None and gid not in gids:  # only level-2 for selected date and gid
                 continue
