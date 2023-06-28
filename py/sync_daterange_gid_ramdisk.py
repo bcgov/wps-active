@@ -22,7 +22,7 @@ e.g. for NTFS001:
 e.g. for NTSSO08:
     python3 ~/GitHub/s2-fire-mapping/sync_date_gid.py 20230530 11VLG 11VLH 11VMH 11VMG
 '''
-use_L2 = True
+use_L2 = False
 data_type = 'MSIL2A'
 if not use_L2:
     data_type = 'MSIL1C'
@@ -140,7 +140,6 @@ while start_d <= end_d:
     date_range += [str(start_d.year).zfill(4) + str(start_d.month).zfill(2) + str(start_d.day).zfill(2)]
 
 print(date_range)
-sys.exit(1)
    
 
 while(True):  # make it go. Need to add termination when completed.
