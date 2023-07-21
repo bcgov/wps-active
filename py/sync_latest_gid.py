@@ -53,7 +53,7 @@ def download_by_gids(gids):
             fw = f.split('_')
             gid = fw[5]  # e.g. T10UGU
             ts = fw[2].split('T')[0]  # e.g. 20230525
-            if fw[1] != 'MSIL2A':
+            if fw[1] != 'MSIL1C':
                 continue
             # print(w)
 
@@ -69,6 +69,7 @@ def download_by_gids(gids):
                     latest[gid] = [[ts, key]] + latest[gid]  # put more recent dates first
 
     for gid in latest:
+        print("gid", gid)
         ts_latest = latest[gid][0][0]
         for latest_i in latest[gid]:
             ts, key = latest_i
