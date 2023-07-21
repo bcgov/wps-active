@@ -56,7 +56,7 @@ def download_by_gids(gids):
             if fw[1] != 'MSIL1C':
                 continue
             # print(w)
-
+            print(gid, gids)
             if gid in gids:  # consider record if has selected gid
                 date_str, time = modified.split('T')
                 date = [int(x) for x in date_str.split('-')]
@@ -77,7 +77,7 @@ def download_by_gids(gids):
                 break
             f = key.split('/')[-1]
 
-            dest = 'L2_' + ts + sep + f
+            dest = 'L1_' + ts + sep + f
             cmd = ' '.join(['aws',
                             's3',
                             'cp',
