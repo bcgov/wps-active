@@ -14,6 +14,11 @@ import os
 import sys
 import json
 import datetime
+
+# PARAMETER
+use_L2 = True # set to False to fetch L1
+
+# start program
 args, sep, exists = sys.argv, os.path.sep, os.path.exists
 my_path = sep.join(os.path.abspath(__file__).split(sep)[:-1]) + sep
 
@@ -53,7 +58,7 @@ def download_by_gids(gids):
             fw = f.split('_')
             gid = fw[5]  # e.g. T10UGU
             ts = fw[2].split('T')[0]  # e.g. 20230525
-            if fw[1] != 'MSIL1C':
+            if fw[1] != ('MSIL2A' if use_L2 else 'MSIL1C'):
                 continue
             # print(w)
             print(gid, gids)
@@ -67,9 +72,10 @@ def download_by_gids(gids):
                     if gid not in latest:
                         latest[gid] = []
                     latest[gid] = [[ts, key]] + latest[gid]  # put more recent dates first
+                    print("update", gid, ts, key)
 
     for gid in latest:
-        print("gid", gid)
+        # print("gid", gid)
         ts_latest = latest[gid][0][0]
         for latest_i in latest[gid]:
             ts, key = latest_i
@@ -77,7 +83,7 @@ def download_by_gids(gids):
                 break
             f = key.split('/')[-1]
 
-            dest = 'L1_' + ts + sep + f
+            dest = ('L2_' if use_L2 else 'L1_') + ts + sep + f
             cmd = ' '.join(['aws',
                             's3',
                             'cp',
@@ -89,7 +95,14 @@ def download_by_gids(gids):
                 a = os.system(cmd) # uncomment this to do the download.
 
 # get gids from command line
+has_error = False
 gids = set(args[1:])
+for g in gids:
+    if len(g) != 6:
+        print("Error: 6-letter code expected e.g. T10UFB")
+        has_error = True
+if has_error:
+    err("please check gid codes and try again")
 
 if len(gids) == 0:  # if no gids provided, default to all gids for BC
     from gid import bc
