@@ -83,6 +83,7 @@ def download_by_gids(gids, date_range):
             if not exists(f):
                 cmds += [cmd]
     
+    print(cmds)
     def runc(c):
         return os.system(c)
     parfor(runc, cmds, int(mp.cpu_count()))  
