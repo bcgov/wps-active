@@ -54,8 +54,6 @@ def download_by_gids(gids):
         key, modified = d['Key'].strip(), d['LastModified']
         w = [x.strip() for x in key.split('/')]
         if w[0] == 'Sentinel-2':
-            print(d)
-            sys.exit(1)
             f = w[-1]
             fw = f.split('_')
             gid = fw[5]  # e.g. T10UGU
