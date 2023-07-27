@@ -80,8 +80,12 @@ def download_by_gids(gids, date_range):
                             's3://sentinel-products-ca-mirror/' + key,
                             f])
      
-            cmds += [cmd]
-    parfor(run_job, cmds, int(mp.cpu_count()))  
+            if not exists(f):
+                cmds += [cmd]
+    
+    def runc(c):
+        return os.system(c)
+    parfor(runc, cmds, int(mp.cpu_count()))  
 
 gids = []  # get gids from command line
 if len(args) > 3:
@@ -122,6 +126,6 @@ print(date_range)
 
 while(True):  # make it go. Need to add termination when completed.
     download_by_gids(gids, date_range)
-    print('waiting 1 min..')
-    time.sleep(60)
+    # print('waiting 1 min..')
+    # time.sleep(60)
 print('done')
