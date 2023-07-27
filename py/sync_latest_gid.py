@@ -54,6 +54,8 @@ def download_by_gids(gids):
         key, modified = d['Key'].strip(), d['LastModified']
         w = [x.strip() for x in key.split('/')]
         if w[0] == 'Sentinel-2':
+            print(d)
+            sys.exit(1)
             f = w[-1]
             fw = f.split('_')
             gid = fw[5]  # e.g. T10UGU
@@ -97,6 +99,8 @@ def download_by_gids(gids):
 # get gids from command line
 has_error = False
 gids = set(args[1:])
+gids = ['T' + g if len(g) == 5 else g for g in gids]  # convert to 6-letter code for GID local to our AOI
+
 for g in gids:
     if len(g) != 6:
         print("Error: 6-letter code expected e.g. T10UFB")
