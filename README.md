@@ -1,7 +1,7 @@
 # Sentinel-2 active fire mapping
 Currently this repo only reflects data download 
 ```
-# sync and process all mirrored dates for date e.g. Jun 3rd, 2023
+# sync and process all mirrored images for one date e.g. Jun 3rd, 2023
 python3 sync_date_gid_ramdisk.py 20230603 all 
 ```
 ## Functions
