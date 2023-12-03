@@ -38,7 +38,7 @@ Information in this repo reflects engagement with the following teams:
 
 ### To be added
 Features to be added:
-* Filter for BC and/or other prov/territoriy since coverage expanded beyond BC (DONE 20230526)
+* Filter for BC and/or other prov/territory since coverage expanded beyond BC (DONE 20230526)
 * CIFFC-database search and intersection operation to determine incident-specific gid (grid-ID) i.e. download incident specific data for any Canadian jurisdiction
 * GDAL-based unpacking / resampling
 * 2022 active fire detection rule
