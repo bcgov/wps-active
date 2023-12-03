@@ -1,5 +1,5 @@
 # Sentinel-2 NRT active fire mapping
-Huge thanks to NRCAN for access to their AWS mirror of Sentinel-2 products! According to a colleage, this source contributed to 13% of all public facing BCWS perimeter data in 2023. The dominant/preferred method for active fire mapping is an airborne source that is based in Alberta and costs approx 30K CAD / day to fly. The NRCAN AWS mirror was used heavily in the unprecedented 2023 season, especially during a critical period when the airborne source was not available. 
+Huge thanks to NRCAN for access to their AWS mirror of Sentinel-2 products! According to a colleage, this source contributed to 13% of all public facing BCWS perimeter data in 2023. The dominant/preferred method for active fire mapping in BC is Alberta-based airborne mission costing approx 30K CAD / day to fly. The NRCAN AWS mirror was used heavily in the unprecedented 2023 season, especially during a critical period when the airborne source was not available. 
 
 Currently this repo only reflects data download 
 ```
