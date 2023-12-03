@@ -1,4 +1,4 @@
-# BCWS Predictive Services Unit (PSU): NRT active fire mapping using ESA Sentinel-2 data
+# Sentinel-2 NRT active fire mapping
 Currently this repo only reflects data download 
 ```
 # sync and process all mirrored images for one date e.g. Jun 3rd, 2023
