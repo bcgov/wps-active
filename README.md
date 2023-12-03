@@ -1,4 +1,7 @@
 # Sentinel-2 NRT active fire mapping
+
+Huge thanks to NRCAN for access to their AWS mirror of Sentinel-2 products! 
+
 Currently this repo only reflects data download 
 ```
 # sync and process all mirrored images for one date e.g. Jun 3rd, 2023
