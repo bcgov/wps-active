@@ -1,6 +1,5 @@
 # Sentinel-2 NRT active fire mapping
-
-Huge thanks to NRCAN for access to their AWS mirror of Sentinel-2 products! 
+Huge thanks to NRCAN for access to their AWS mirror of Sentinel-2 products! According to a colleage, 13% of all public facing BCWS perimeter data were created from this source in 2023. The dominant/preferred method for active fire mapping is an airborne source that costs approx 30K CAD / day to fly. 
 
 Currently this repo only reflects data download 
 ```
