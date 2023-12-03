@@ -29,7 +29,7 @@ python3 py/sync_date_gid.py 20230525 # example: pull data over bc for May 25, 20
 python3 py/sync_today_all.py # [yyyymmdd]: optional arg: sync all data from yyyymmdd
 ```
 # Notes
-Information in this repo reflects engagement with the following teams:
+Information in this repo reflects collaboration with the following teams:
 * NRCan/WildFireSat
 * NRCan/EGS
 * NRCan/GSDI
