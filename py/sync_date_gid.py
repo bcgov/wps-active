@@ -54,11 +54,11 @@ def download_by_gids(gids, date_string):
             fw = f.split('_')
             gid = fw[5][1:]  # e.g. T10UGU
             ts = fw[2].split('T')[0]  # e.g. 20230525
-            if fw[1] != 'MSIL2A' or ts != date_string or gid not in gids:  # only level-2 for selected date and gid
+            if fw[1] != 'MSIL1C' or ts != date_string or gid not in gids:  # only level-2 for selected date and gid
                 continue
             # print(d)
             # f = key.split('/')[-1]
-            dest = 'L2_' + ts + sep + f
+            dest = 'L1_' + ts + sep + f
             cmd = ' '.join(['aws',
                             's3',
                             'cp',
