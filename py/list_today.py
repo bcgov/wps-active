@@ -8,6 +8,7 @@ import os
 import sys
 import datetime
 from gid import bc
+sep = os.path.sep 
 
 bc_gid = bc()
 print("bc row-id under obs:", bc_gid)
@@ -21,14 +22,9 @@ now = datetime.date.today()
 year, month, day = str(now.year).zfill(4), str(now.month).zfill(2), str(now.day).zfill(2)
 
 print([year, month, day])
-def incr(c): return chr(ord(c) + 1)
-def decr(c): return chr(ord(c) - 1)
-def cenc(s): return "".join([incr(si) for si in list(s)])
-def cdec(s): return "".join([decr(si) for si in list(s)])
-a = cdec("t4;00tfoujofm.qspevdut.db.njssps0")
-ls = cdec("bxt!t4!mt!..op.tjho.sfrvftu!")
-s2 = cdec("Tfoujofm.30")
-
+ls = 'aws s3 ls --no-sign-request'
+path = 's3://sentinel-products-ca-mirror/Sentinel-2/'
+c1, c2 = ' '.join([ls, path + 'S2MSI1C/']), ' '.join([ls, path + 'S2MSI2A/'])
 c1 = ls + a + s2 + 'S2MSI1C/' # + '/'.join([year, month, day]) + '/' 
 c2 = ls + a + s2 + 'S2MSI2A/' # + '/'.join([year, month, day]) + '/'
 
@@ -72,7 +68,6 @@ def my_list(c2_d):
     if len(bc_row_id) != len(list(set(bc_row_id))):
         print("Multiple obs. for some bc gid")
     
-
 print("LEVEL 1:")
 my_list(c1_d)
 print("LEVEL 2:")
