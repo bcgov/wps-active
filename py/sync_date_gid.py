@@ -7,7 +7,7 @@ python3 sync_date_gid.py [date: yyyymmdd] e.g.
 python3 sync_date_gid.py 20230525
 
 e.g. current data over Kamloops:
-python3 ~/GitHub/wps-active/py/sync_date_gid.py   20231201 10UFB
+python3 ~/GitHub/wps-active/py/sync_date_gid.py 20231123 10UFB
 
 e.g. for NTFS001:
 python3 ~/GitHub/s2-fire-mapping/sync_date_gid.py 20230530 10VEM 10VFM 
