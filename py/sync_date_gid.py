@@ -6,6 +6,9 @@ for specified date: yyyymmdd only
 python3 sync_date_gid.py [date: yyyymmdd] e.g.
 python3 sync_date_gid.py 20230525
 
+e.g. current data over Kamloops:
+python3 ~/GitHub/wps-active/py/sync_date_gid.py   20231201 10UFB
+
 e.g. for NTFS001:
 python3 ~/GitHub/s2-fire-mapping/sync_date_gid.py 20230530 10VEM 10VFM 
 
@@ -38,11 +41,12 @@ def download_by_gids(gids, date_string):
     # print(cmd)
     data = os.popen(cmd).read()
 
-    if not exists(my_path + 'listing'):  # json backup for analysis
-        os.mkdir(my_path + 'listing')
-    df = my_path + 'listing' + sep + ts + '_objects.txt'  # file to write
-    # print('+w', df)
-    open(df, 'wb').write(data.encode())  # record json to file
+    if False:
+        if not exists(my_path + 'listing'):  # json backup for analysis
+            os.mkdir(my_path + 'listing')
+        df = my_path + 'listing' + sep + ts + '_objects.txt'  # file to write
+        # print('+w', df)
+        open(df, 'wb').write(data.encode())  # record json to file
 
     d = json.loads(data)  # parse json data
     data = d['Contents']  # extract the data records, one per dataset
@@ -56,7 +60,7 @@ def download_by_gids(gids, date_string):
             ts = fw[2].split('T')[0]  # e.g. 20230525
             if fw[1] != 'MSIL1C' or ts != date_string or gid not in gids:  # only level-2 for selected date and gid
                 continue
-            # print(d)
+            print(d)
             # f = key.split('/')[-1]
             dest = 'L1_' + ts + sep + f
             cmd = ' '.join(['aws',
@@ -83,6 +87,9 @@ yyyymmdd = args[1]
 if len(yyyymmdd) != 8:
     print('Error: expected date in format yyyymmdd')
     sys.exit(1)
+
+print("gids", gids)
+print("date", yyyymmdd)
 #  make it go
 download_by_gids(gids, yyyymmdd)
 print('done')
