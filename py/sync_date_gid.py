@@ -83,8 +83,9 @@ if len(args) > 2:
 
 # If no GIDs provided, default to all gids for BC
 if len(gids) == 0:
-    print('Error: No GIDs provided.')
-    sys.exit(1)
+    from gid import bc
+    gids = bc()
+    print('Default: use all gid for British Columbia')
 
 yyyymmdd = args[1]
 if len(yyyymmdd) != 8:
