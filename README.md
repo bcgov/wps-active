@@ -1,26 +1,39 @@
 # Sentinel-2 NRT active fire mapping
-Huge thanks to NRCAN for access to their AWS mirror of Sentinel-2 products! According to a colleage, this source contributed to 13% of all public facing BCWS perimeter data in 2023. The dominant/preferred method for active fire mapping in BC is Alberta-based airborne mission costing approx 30K CAD / day to fly. The NRCAN AWS mirror was used heavily for Sentinel-2 (satellite) based fire mapping in the unprecedented 2023 season, especially during a critical period when the airborne source was not available. 
+Huge thanks to [Natural Resources Canada (NRCAN)](https://natural-resources.canada.ca/) for open-sourcing their AWS mirror of Sentinel-2 satellite products, which contributed to 13% of all of BC Wildfire Service's (BCWS) public-facing perimeter data in 2023! Currently, the dominant/preferred method for active fire mapping in BC is Alberta-based airborne missions, which cost approximately $30K (CAD) per day to fly. With the NRCAN's Sentinel-2 satellite data, not only were we able to save valuable energy and financial resources, but we were also able to build critical fire maps for the unprecedented 2023 fire season, where airborne resources weren't even an option for long stretches and instead deployed to battle the fires. 
 
-Currently this repo only reflects data download 
+With the `wps-active` repo, users can download the contents of NRCAN's mirror of ESA Sentinel-2 data products, stored in an Amazon Web Service (AWS) S3 bucket. That said, running the commands listed below will require the installation of the AWS command line interface (CLI), which can be found [here](https://github.com/bcgov/wps-research/blob/master/HOWTO.md) if you haven't already installed it. 
+
+To check whether the AWS CLI has been installed, simply type in `aws` then hit "enter" in your command line and you should see the following results:
+
 ```
-# sync and process all mirrored images for one date e.g. Jun 3rd, 2023
+  aws help
+  aws <command> help
+  aws <command> <subcommand> help
+```
+
+## Functions
+
+Below are some examples of functions we've developed to access specific data within NRCAN's S3 bucket:
+
+To access all the satellite data for a given date (e.g. June 3rd, 2023), run the following command:
+
+```
 python3 sync_date_gid_ramdisk.py 20230603 all 
 ```
-## Functions
-### For specific grid-id, pull most recent data only
+
+To pull the most recent data for a list of [grid-IDs](https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59), which are specific persistent footprints based on UTM coordinate system, enter the command below:
 ```
 python3 sync_latest_gid.py [gid #1] [gid #2] .. [gid #N]
 ```
-to download only the most-recent data for a list of ["grid id"](https://eatlas.org.au/data/uuid/f7468d15-12be-4e3f-a246-b2882a324f59) (i.e. specific persistent footprints based on UTM coordinate system)
 
-Currently this downloads the latest data for BC:
+To download the latest data for BC, use the following command:
 ```
 python3 py/sync_latest_gid.py
 ```
 
-### For jurisdiction-specific grid-id, pull data for specific date only
+To download data for a specific date (e.g. May 25th, 2023) and a specific jurisdiction grid-id, run the command below:
 ```
-python3 py/sync_date_gid.py 20230525 # example: pull data over bc for May 25, 2023
+python3 py/sync_date_gid.py 20230525 
 ```
 
 ## Deprecated
