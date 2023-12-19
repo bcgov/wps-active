@@ -76,7 +76,7 @@ def download_by_gids(gids, date_string):
                 print(cmd)
                 a = os.system(cmd)
 
-# Gets Gaofen Image Dataset(GIDs) from command line
+# Gets Grid-ID (GIDs) from command line
 gids = []
 if len(args) > 2:
     gids = set(args[2:])
