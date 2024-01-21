@@ -11,7 +11,7 @@ To check whether the AWS CLI has been installed, simply type in `aws` then hit "
   aws <command> <subcommand> help
 ```
 ## Dependencies
-
+Pip is recommended for installing dependencies. If pip is not included in your python installation, you may have to install it by following the instructions here: [Pip installation](https://pip.pypa.io/en/stable/installation/).
 ## Functions
 
 Below are some examples of functions we've developed to access specific data within NRCAN's S3 bucket:
