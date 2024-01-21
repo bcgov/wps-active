@@ -10,6 +10,7 @@ To check whether the AWS CLI has been installed, simply type in `aws` then hit "
   aws <command> help
   aws <command> <subcommand> help
 ```
+## Dependencies
 
 ## Functions
 
