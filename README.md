@@ -1,5 +1,5 @@
 # Sentinel-2 NRT active fire mapping
-Huge thanks to [Natural Resources Canada (NRCAN)](https://natural-resources.canada.ca/) for open-sourcing their AWS mirror of Sentinel-2 satellite products, which contributed to 13% of all of BC Wildfire Service's (BCWS) public-facing perimeter data in 2023! Currently, the dominant/preferred method for active fire mapping in BC is Alberta-based airborne missions, which cost approximately $30K (CAD) per day to fly. With the NRCAN's Sentinel-2 satellite data, not only were we able to save valuable energy and financial resources, but we were also able to build critical fire maps for the unprecedented 2023 fire season, where airborne resources weren't even an option for long stretches and instead deployed to battle the fires. 
+Huge thanks to [Natural Resources Canada (NRCAN)](https://natural-resources.canada.ca/) for providing open access to their AWS mirror of ESA's Sentinel-2 satellite products. This AWS mirror contributed to ~13% of all of BC Wildfire Service's (BCWS) public-facing perimeter data in 2023! Currently, the preferred method for active fire mapping in BC is an Alberta-based airborne mission, which costs approximately $30K (CAD) per day to fly. Using NRCAN's mirror of Sentinel-2 satellite data, we were able to build critical fire maps for the unprecedented 2023 fire season, especially during critical periods when the usual airborne resources weren't available as they were already allocated. 
 
 With the `wps-active` repo, users can download the contents of NRCAN's mirror of ESA Sentinel-2 data products stored in an Amazon Web Service (AWS) S3 bucket. That said, running the commands listed below will require the installation of the AWS command line interface (CLI), which can be found [here](https://github.com/bcgov/wps-research/blob/master/HOWTO.md) if you haven't already installed it. 
 
@@ -10,7 +10,8 @@ To check whether the AWS CLI has been installed, simply type in `aws` then hit "
   aws <command> help
   aws <command> <subcommand> help
 ```
-
+## Dependencies
+Pip is recommended for installing dependencies. If pip is not included in your python installation, you may have to install it by following the instructions here: [Pip installation](https://pip.pypa.io/en/stable/installation/).
 ## Functions
 
 Below are some examples of functions we've developed to access specific data within NRCAN's S3 bucket:
