@@ -1,7 +1,10 @@
-'''20230605 sentinel2_extract_swir.py
+'''
+20230605 sentinel2_extract_swir.py
 N.b. For now please leave commented line:
 # run('raster_zero_to_nan ' + stack_fn)
-as a reminder that we need to be careful about non-data values in the next step'''
+as a reminder that we need to be careful about non-data values in the next step
+'''
+
 from misc import err, args, exist, run, parfor
 from envi import envi_header_cleanup
 import multiprocessing as mp
@@ -9,6 +12,7 @@ from osgeo import gdal
 import numpy as np
 import sys
 import os
+import glob
 
 def extract(file_name):
     w = file_name.split('_')  # split filename on '_'
@@ -116,6 +120,15 @@ if __name__ == "__main__":
         extract(file_name)
 
     else:
-        files = [x.strip() for x in os.popen("ls -1 S*MSIL2A*.zip").readlines()]
-        files += [x.strip() for x in os.popen("ls -1 S*MSIL1C*.zip").readlines()]
+        try:
+            # files = [x.strip() for x in os.popen("ls -1 S*MSIL2A*.zip").readlines()]
+            # files += [x.strip() for x in os.popen("ls -1 S*MSIL1C*.zip").readlines()]
+
+            files = [x.strip() for x in os.popen("dir /B S2A*.zip").readlines()]
+            files += [x.strip() for x in os.popen("dir /B S2A*.zip").readlines()]
+
+        except Exception as e:
+            print(f"An Exception as {e} was raised!")
+
+
         parfor(extract, files, int(mp.cpu_count()))

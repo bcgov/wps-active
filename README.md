@@ -1,7 +1,7 @@
 # Sentinel-2 NRT active fire mapping
 Huge thanks to [Natural Resources Canada (NRCAN)](https://natural-resources.canada.ca/) for open-sourcing their AWS mirror of Sentinel-2 satellite products, which contributed to 13% of all of BC Wildfire Service's (BCWS) public-facing perimeter data in 2023! Currently, the dominant/preferred method for active fire mapping in BC is Alberta-based airborne missions, which cost approximately $30K (CAD) per day to fly. With the NRCAN's Sentinel-2 satellite data, not only were we able to save valuable energy and financial resources, but we were also able to build critical fire maps for the unprecedented 2023 fire season, where airborne resources weren't even an option for long stretches and instead deployed to battle the fires. 
 
-With the `wps-active` repo, users can download the contents of NRCAN's mirror of ESA Sentinel-2 data products, stored in an Amazon Web Service (AWS) S3 bucket. That said, running the commands listed below will require the installation of the AWS command line interface (CLI), which can be found [here](https://github.com/bcgov/wps-research/blob/master/HOWTO.md) if you haven't already installed it. 
+With the `wps-active` repo, users can download the contents of NRCAN's mirror of ESA Sentinel-2 data products stored in an Amazon Web Service (AWS) S3 bucket. That said, running the commands listed below will require the installation of the AWS command line interface (CLI), which can be found [here](https://github.com/bcgov/wps-research/blob/master/HOWTO.md) if you haven't already installed it. 
 
 To check whether the AWS CLI has been installed, simply type in `aws` then hit "enter" in your command line and you should see the following results:
 
