@@ -2,7 +2,14 @@
 20230605 sentinel2_extract_swir.py
 N.b. For now please leave commented line:
 # run('raster_zero_to_nan ' + stack_fn)
-as a reminder that we need to be careful about non-data values in the next step
+as a reminder we need to be careful with non-data values in the next step
+
+20240121 the code now works on Windows and Linux
+Running within Anaconda prompt (Windows, python3):
+    python -i sentinel2_extract_swir.py
+Running in Linux:
+    python3 sentinel2_extract_swir.py
+
 '''
 
 from misc import err, args, exist, run, parfor
@@ -121,14 +128,18 @@ if __name__ == "__main__":
 
     else:
         try:
-            # files = [x.strip() for x in os.popen("ls -1 S*MSIL2A*.zip").readlines()]
-            # files += [x.strip() for x in os.popen("ls -1 S*MSIL1C*.zip").readlines()]
-
-            files = [x.strip() for x in os.popen("dir /B S2A*.zip").readlines()]
-            files += [x.strip() for x in os.popen("dir /B S2A*.zip").readlines()]
+            files = []
+            for file in os.listdir(os.getcwd()):
+                if file.endswith('zip') and file.startswith('S2') and len(file.split('MSIL')) > 1:
+                    files += [file]     
+            
+            parfor(extract, files, int(mp.cpu_count()))
 
         except Exception as e:
             print(f"An Exception as {e} was raised!")
 
-
-        parfor(extract, files, int(mp.cpu_count()))
+        else:
+            print("\n The first bash command did not run successfully. Attempting another version of the same command... \n")       
+            files = [x.strip() for x in os.popen("dir /B S2A*.zip").readlines()]
+            files += [x.strip() for x in os.popen("dir /B S2A*.zip").readlines()]
+            parfor(extract, files, 1)
