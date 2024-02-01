@@ -11,7 +11,10 @@ To check whether the AWS CLI has been installed, simply type in `aws` then hit "
   aws <command> <subcommand> help
 ```
 ## Dependencies
-Pip is recommended for installing dependencies. If pip is not included in your python installation, you may have to install it by following the instructions here: [Pip installation](https://pip.pypa.io/en/stable/installation/).
+[Anaconda](https://www.anaconda.com/download) is recommended for managing all dependencies. Within Anaconda Prompt, [pip](https://pip.pypa.io/en/stable/installation/) will be available to install the dependencies that may be needed for this repo.
+
+However, one library may that might cause issues is [GDAL](https://gdal.org/) as it may not come pre-installed with Anaconda Prompt and needs to be downloaded manually. If this is the case, there is a [UCLA blog tutorial](https://sandbox.oarc.ucla.edu/tutorials/installing-gdal-for-windows), along with a [video tutorial](https://youtu.be/gkdNvwmoV_E?si=twl8mSOC1yUC5ACz), that walks through how to install GDAL on Windows through the use of [wheel files (whl)](https://www.lfd.uci.edu/~gohlke/pythonlibs/#gdal). Do note that it's important to download the wheel file tag that's [compatible with your system](https://stackoverflow.com/a/67970307). Run the `pip debug --verbose` command to get a list of compatible tags and match them with one of the GDAL wheel files available for download.
+
 ## Functions
 
 Below are some examples of functions we've developed to access specific data within NRCAN's S3 bucket:
