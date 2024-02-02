@@ -42,6 +42,7 @@ def extract(file_name):
     arrays = {}
     selected_bands = []
     for subdataset in d.GetSubDatasets():  # select bands
+        print(subdataset)
         subdataset_path = subdataset[0]
         subdataset_dataset = gdal.Open(subdataset_path)
     
@@ -137,9 +138,3 @@ if __name__ == "__main__":
 
         except Exception as e:
             print(f"An Exception as {e} was raised!")
-
-        else:
-            print("\n The first bash command did not run successfully. Attempting another version of the same command... \n")       
-            files = [x.strip() for x in os.popen("dir /B S2A*.zip").readlines()]
-            files += [x.strip() for x in os.popen("dir /B S2A*.zip").readlines()]
-            parfor(extract, files, 1)
