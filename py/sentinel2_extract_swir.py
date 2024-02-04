@@ -1,7 +1,17 @@
-'''20230605 sentinel2_extract_swir.py
+'''
+20230605 sentinel2_extract_swir.py
 N.b. For now please leave commented line:
 # run('raster_zero_to_nan ' + stack_fn)
-as a reminder that we need to be careful about non-data values in the next step'''
+as a reminder we need to be careful with non-data values in the next step
+
+20240121 the code now works on Windows and Linux
+Running within Anaconda prompt (Windows, python3):
+    python -i sentinel2_extract_swir.py
+Running in Linux:
+    python3 sentinel2_extract_swir.py
+
+'''
+
 from misc import err, args, exist, run, parfor
 from envi import envi_header_cleanup
 import multiprocessing as mp
@@ -9,6 +19,7 @@ from osgeo import gdal
 import numpy as np
 import sys
 import os
+import glob
 
 def extract(file_name):
     w = file_name.split('_')  # split filename on '_'
@@ -31,6 +42,7 @@ def extract(file_name):
     arrays = {}
     selected_bands = []
     for subdataset in d.GetSubDatasets():  # select bands
+        print(subdataset)
         subdataset_path = subdataset[0]
         subdataset_dataset = gdal.Open(subdataset_path)
     
@@ -116,6 +128,13 @@ if __name__ == "__main__":
         extract(file_name)
 
     else:
-        files = [x.strip() for x in os.popen("ls -1 S*MSIL2A*.zip").readlines()]
-        files += [x.strip() for x in os.popen("ls -1 S*MSIL1C*.zip").readlines()]
-        parfor(extract, files, int(mp.cpu_count()))
+        try:
+            files = []
+            for file in os.listdir(os.getcwd()):
+                if file.endswith('zip') and file.startswith('S2') and len(file.split('MSIL')) > 1:
+                    files += [file]     
+            
+            parfor(extract, files, int(mp.cpu_count()))
+
+        except Exception as e:
+            print(f"An Exception as {e} was raised!")
