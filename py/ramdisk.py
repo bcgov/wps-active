@@ -32,8 +32,8 @@ def ramdisk(unmount=False):  # mount or unmount a ramdisk
     if w[0] != 'MemTotal:' or w[2] != 'kB':
         err('expected keywords in cat /proc/meminfo: {MemTotal, kB}')
 
-    # use approx half of total RAM
-    k = int(math.floor(1. * int(w[1])/ 2.))
+    # use one eighth of total RAM
+    k = int(math.floor(1. * int(w[1])/ 8.))
 
     if not exists('/ram'):
         run('sudo mkdir /ram')
