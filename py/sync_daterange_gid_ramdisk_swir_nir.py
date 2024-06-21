@@ -22,7 +22,7 @@ e.g. for NTFS001:
 e.g. for NTSSO08:
     python3 ~/GitHub/s2-fire-mapping/sync_date_gid.py 20230530 11VLG 11VLH 11VMH 11VMG
 '''
-use_L2 = False
+use_L2 =True 
 data_type = 'MSIL2A'
 if not use_L2:
     data_type = 'MSIL1C'
