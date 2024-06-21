@@ -27,7 +27,7 @@ data_type = 'MSIL2A'
 if not use_L2:
     data_type = 'MSIL1C'
 
-from misc import args, sep, exists, parfor, run, time_stamp, err
+from misc import args, sep, exists, parfor, run, timestamp, err
 import multiprocessing as mp
 import datetime
 import time
@@ -38,7 +38,7 @@ my_path = sep.join(os.path.abspath(__file__).split(sep)[:-1]) + sep
 product_target = os.getcwd() + sep # put ARD products into present folder
 
 def download_by_gids(gids, date_range):
-    ts = time_stamp()
+    ts = timestamp()
     cmd = ' '.join(['aws',  # read data from aws
                     's3api',
                     'list-objects',
