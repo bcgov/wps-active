@@ -79,8 +79,8 @@ def download_by_gids(gids, date_range):
                             's3://sentinel-products-ca-mirror/' + key,
                             f])
             
-            product_target_file =  product_target + f[:-3] + 'bin'
-            prod_target_hdr = product_target + f[:-3] + 'hdr'
+            product_target_file =  product_target + f[:-4] + '_cloudfree.bin'
+            prod_target_hdr = product_target + f[:-4] + '_cloudfree.hdr'
             prod_file = f[:-4] + '_cloudfree.bin'
             prod_hdr = f[:-4] + '_cloudfree.hdr'
             if not exists(product_target_file):
@@ -96,7 +96,7 @@ def download_by_gids(gids, date_range):
     def run_job(j):
         os.chdir('/ram/')
         run(j['download_command'])
-        run('sentinel2_extract_swir_nir.py ' + j['zip_filename'])
+        run('sentinel2_extract_cloudfree_swir_nir.py ' + j['zip_filename'])
         run('mv -v ' + j['prod_file'] + ' ' + j['prod_target'])
         run('mv -v ' + j['prod_hdr'] + ' ' + j['prod_target_hdr'])
         run('rm -v ' + j['zip_filename'])
