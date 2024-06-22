@@ -29,6 +29,7 @@ if not use_L2:
 
 from misc import args, sep, exists, parfor, run, timestamp, err
 import multiprocessing as mp
+from update_listing import latest_listing
 import datetime
 import time
 import json
@@ -38,7 +39,7 @@ my_path = sep.join(os.path.abspath(__file__).split(sep)[:-1]) + sep
 product_target = os.getcwd() + sep # put ARD products into present folder
 
 def download_by_gids(gids, date_range):
-    ts = timestamp()
+    '''ts = timestamp()
     cmd = ' '.join(['aws',  # read data from aws
                     's3api',
                     'list-objects',
@@ -51,10 +52,14 @@ def download_by_gids(gids, date_range):
         os.mkdir(my_path + 'listing')
     df = my_path + 'listing' + sep + ts + '_objects.txt'  # file to write
     open(df, 'wb').write(data.encode())  # record json to file
+    '''
+    data = latest_listing()
 
     jobs, d = [], None
     try:
+        print('json.loads(data)')
         d = json.loads(data)  # parse json data
+        print('json data parsed')
     except:
         err('please confirm aws cli: e.g. sudo apt install awscli')
     data = d['Contents']  # extract the data records, one per dataset
@@ -65,7 +70,7 @@ def download_by_gids(gids, date_range):
         if w[0] == 'Sentinel-2':
             f = w[-1]
             fw = f.split('_')
-            gid = fw[5][1:]  # e.g. T10UGU
+            gid = fw[5][0:]  # e.g. T10UGU
             ts = fw[2].split('T')[0]  # e.g. 20230525
             if fw[1] != data_type or ts not in date_range:  # wrong product or outside date range
                 continue
@@ -78,9 +83,11 @@ def download_by_gids(gids, date_range):
                             '--no-sign-request',
                             's3://sentinel-products-ca-mirror/' + key,
                             f])
-            
-            product_target_file =  product_target + f[:-4] + '_cloudfree.bin'
-            prod_target_hdr = product_target + f[:-4] + '_cloudfree.hdr'
+            product_target_f = product_target + 'L2_' + gid + sep
+            if not os.path.exists(product_target_f):
+                os.mkdir(product_target_f)  
+            product_target_file =  product_target_f + f[:-4] + '_cloudfree.bin'
+            prod_target_hdr = product_target_f + f[:-4] + '_cloudfree.hdr'
             prod_file = f[:-4] + '_cloudfree.bin'
             prod_hdr = f[:-4] + '_cloudfree.hdr'
             if not exists(product_target_file):
