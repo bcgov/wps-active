@@ -151,6 +151,6 @@ print(date_range)
 
 while(True):  # make it go. Need to add termination when completed.
     download_by_gids(gids, date_range)
-    print('waiting 1 min..')
-    time.sleep(60)
+    print(done) # print('waiting 1 min..')
+    break    # time.sleep(60)
 print('done')
