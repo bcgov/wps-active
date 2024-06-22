@@ -1,4 +1,6 @@
 '''
+20240621: this version needs update_listing.py to be called to refresh the listing.
+
 20230627: sync a date range for selected GID
 
 Instructions: run from path on SSD,
