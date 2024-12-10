@@ -95,7 +95,19 @@ def download_by_gids(gids, date_range):
 gids = []
 
 if len(args) < 4:
-    err("sync_daterange_aoi_zip.tar.gz [yyyymmdd] [yyyymmdd] [aoi shapefile]")
+    err("sync_daterange_aoi_zip.tar.gz [yyyymmdd] [yyyymmdd] [aoi shapefile] [--use_L1 or --use_L2]")
+
+if not (('--use_L1' in args) or ('--use_L2' in args)):
+    err('please specify whether to retrieve L1 or L2 data using the --use_L1 or --use_L2 flag')
+
+if '--use_L1' in args:
+    use_L2 = False
+
+if '--use_L2' in args:
+    use_L2 = True
+
+if '--use_L1' in args and '--use_L2' in args:
+    err('please select L1 or L2 only')
 
 aoi_shp = args[3]
 
