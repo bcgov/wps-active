@@ -17,6 +17,12 @@ import time
 import json
 import sys
 import os
+
+import warnings
+import urllib3
+warnings.filterwarnings("ignore", message="Unable to import Axes3D")  # suppress axes3d warning
+warnings.filterwarnings("ignore", category=urllib3.exceptions.InsecureRequestWarning)  # suppress insecure request warning
+
 my_path = sep.join(os.path.abspath(__file__).split(sep)[:-1]) + sep
 product_target = os.getcwd() + sep # put ARD products into present folder
 
@@ -119,9 +125,8 @@ gdf_aoi = gpd.read_file(aoi_shp)
 gdf_s2 = gpd.read_file(s2_shp + 's2_gid' + sep + 's2_gid.shp')
 gdf_aoi = gdf_aoi.to_crs(gdf_s2.crs)  # interpret the two shapefiles on the same coordinate system
 intersect = gpd.sjoin(gdf_s2, gdf_aoi, how='inner', predicate="intersects")
-
-print(intersect)
-print(type(intersect))
+# print(intersect)
+# print(type(intersect))
 
 gids = intersect['Name'].to_list()
 print('Selected Sentinel-2 tile/grid ID: ' + str(gids))
@@ -129,7 +134,6 @@ print('Selected Sentinel-2 tile/grid ID: ' + str(gids))
 yyyymmdd, yyyymmdd2 = args[1], args[2]
 if len(yyyymmdd) != 8 or len(yyyymmdd2) != 8:
     err('expected date in format yyyymmdd')
-
 
 start_d = datetime.datetime(int(yyyymmdd[0:4]),
                             int(yyyymmdd[4:6]),
