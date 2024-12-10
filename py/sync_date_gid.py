@@ -76,25 +76,26 @@ def download_by_gids(gids, date_string):
                 print(cmd)
                 a = os.system(cmd)
 
-# Gets Grid-ID (GIDs) from command line
-gids = []
-if len(args) > 2:
-    gids = set(args[2:])
+if __name__ == '__main__':
+    # Gets Grid-ID (GIDs) from command line
+    gids = []
+    if len(args) > 2:
+        gids = set(args[2:])
 
-# If no GIDs provided, default to all gids for BC
-if len(gids) == 0:
-    from gid import bc
-    gids = bc()
-    print('Default: use all gid for British Columbia')
+    # If no GIDs provided, default to all gids for BC
+    if len(gids) == 0:
+        from gid import bc
+        gids = bc()
+        print('Default: use all gid for British Columbia')
 
-yyyymmdd = args[1]
-if len(yyyymmdd) != 8:
-    print('Error: Expected date in format yyyymmdd.')
-    sys.exit(1)
+    yyyymmdd = args[1]
+    if len(yyyymmdd) != 8:
+        print('Error: Expected date in format yyyymmdd.')
+        sys.exit(1)
 
-print("GIDs:", gids)
-print("Date:", yyyymmdd)
+    print("GIDs:", gids)
+    print("Date:", yyyymmdd)
 
-# Running our `download_by_gids` function
-download_by_gids(gids, yyyymmdd)
-print('Done')
+    # Running our `download_by_gids` function
+    download_by_gids(gids, yyyymmdd)
+    print('Done')
