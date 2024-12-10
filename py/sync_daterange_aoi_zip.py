@@ -51,7 +51,7 @@ def download_by_gids(gids, date_range):
                     'list-objects',
                     '--no-verify-ssl',
                     '--no-sign-request',
-                    '--bucket sentinel-products-ca-mirror 2>&1'])
+                    '--bucket sentinel-products-ca-mirror'])
     print(cmd)
     data = os.popen(cmd).read()
 
