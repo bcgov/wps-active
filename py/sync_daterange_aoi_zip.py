@@ -91,7 +91,6 @@ def download_by_gids(gids, date_range):
                             '--no-sign-request',
                             's3://sentinel-products-ca-mirror/' + key,
                             f])
-     
             if exists(f):
                 print(f, "SKIPPING")
             else:
