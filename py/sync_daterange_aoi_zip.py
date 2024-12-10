@@ -1,5 +1,8 @@
 '''
 20241210 sync_daterange_aoi_zip.py: download sentinel-2 data zipfiles, from NRCAN AWS mirror, within daterange ( yyyymmdd ) over specified aoi ( within Canada )
+
+NOTE: linux or linux via WSL ( windows subsystem / Linux ) assumed 
+
 20241210: sync sentinel-2 data in a date range, all tiles which intersect the given AOI provided in shapefile format.
 20230627: sync a date range for selected GID, in Level-2 to zip file format.
 20230627: sync a date range for selected GID'''
