@@ -134,13 +134,7 @@ while start_d <= end_d:
     print(start_d)
     start_d += datetime.timedelta(days=1)
     date_range += [str(start_d.year).zfill(4) + str(start_d.month).zfill(2) + str(start_d.day).zfill(2)]
-
 print(date_range)
    
-
-while(True):  # make it go. Need to add termination when completed.
-    download_by_gids(gids, date_range)
-    # print('waiting 1 min..')
-    # time.sleep(60)
-    break
+download_by_gids(gids, date_range)
 print('done')
