@@ -1,8 +1,8 @@
-'''20241210: sync sentinel-2 data in a date range, all tiles which intersect the given AOI provided in shapefile format.
-
-20230627: sync a date range for selected GID, in Level-2 to zip file format.
-20230627: sync a date range for selected GID
 '''
+20241210 sync_daterange_aoi_zip.py: download sentinel-2 data zipfiles, from NRCAN AWS mirror, within daterange ( yyyymmdd ) over specified aoi ( within Canada )
+20241210: sync sentinel-2 data in a date range, all tiles which intersect the given AOI provided in shapefile format.
+20230627: sync a date range for selected GID, in Level-2 to zip file format.
+20230627: sync a date range for selected GID'''
 
 use_L2 = True
 data_type = 'MSIL2A'
@@ -48,7 +48,7 @@ def download_by_gids(gids, date_range):
                     'list-objects',
                     '--no-verify-ssl',
                     '--no-sign-request',
-                    '--bucket sentinel-products-ca-mirror'])
+                    '--bucket sentinel-products-ca-mirror 2>&1'])
     print(cmd)
     data = os.popen(cmd).read()
 
