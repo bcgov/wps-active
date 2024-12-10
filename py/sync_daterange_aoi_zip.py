@@ -45,6 +45,9 @@ else:
 
 
 def download_by_gids(gids, date_range):
+    global data_type
+    global use_L2
+
     ts = timestamp()
     cmd = ' '.join(['aws',  # read data from aws
                     's3api',
@@ -117,6 +120,9 @@ if '--use_L2' in args:
 
 if '--use_L1' in args and '--use_L2' in args:
     err('please select L1 or L2 only')
+
+if not use_L2:
+    data_type = 'MSIL1C'
 
 aoi_shp = args[3]
 
